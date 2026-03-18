@@ -15,4 +15,5 @@ $routes->group('api', function($routes) {
     $routes->resource('cajas', ['controller' => 'Api\CajasRemolques']);
     $routes->resource('viajes', ['controller' => 'Api\Viajes']);
     $routes->resource('evidencias', ['controller' => 'Api\Evidencias']);
+    $routes->resource('ordenes_trabajo', ['controller' => 'Api\OrdenesTrabajo']);
 });

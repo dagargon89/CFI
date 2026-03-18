@@ -16,4 +16,8 @@ $routes->group('api', ['filter' => 'session'], function($routes) {
     $routes->resource('viajes', ['controller' => 'Api\Viajes']);
     $routes->resource('evidencias', ['controller' => 'Api\Evidencias']);
     $routes->resource('ordenes_trabajo', ['controller' => 'Api\OrdenesTrabajo', 'filter' => 'group:admin,trafico,mantenimiento']);
+    
+    // Nivel 4 - Finanzas
+    $routes->resource('gastos_operativos', ['controller' => 'Api\GastosOperativos', 'filter' => 'group:admin,finanzas']);
+    $routes->get('exportacion/gastos', 'Api\Exportacion::gastos', ['filter' => 'group:admin,finanzas']);
 });

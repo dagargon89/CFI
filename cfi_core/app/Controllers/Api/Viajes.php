@@ -12,6 +12,13 @@ class Viajes extends ResourceController
 
     public function index()
     {
+        $user = auth()->user();
+        
+        // RBAC: Si es cliente, SOLO ve sus propios viajes
+        if ($user && $user->inGroup('cliente')) {
+            $this->model->where('id_cliente', $user->id);
+        }
+
         return $this->respond($this->model->findAll());
     }
 

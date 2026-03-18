@@ -28,7 +28,11 @@ class TractocamionesModel extends Model
     protected $deletedField  = 'deleted_at';
 
     // Validation
-    protected $validationRules      = [];
+    protected $validationRules      = [
+        'economico'        => 'required|alpha_numeric|max_length[50]|is_unique[tractocamiones.economico,id,{id}]',
+        'placas'           => 'required|alpha_numeric_space|max_length[50]',
+        'status_operativo' => 'required|in_list[disponible,en_ruta,taller,baja]',
+    ];
     protected $validationMessages   = [];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Cliente - CFI Logístico</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans antialiased">
+    <!-- Header -->
+    <header class="bg-gray-900 text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold flex items-center">
+                <svg class="w-6 h-6 mr-2 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
+                Portal Cliente - Mis Viajes
+            </h1>
+            <nav>
+                <button class="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded text-sm transition">Cerrar Sesión</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-8" x-data="portalCliente()">
+        <div class="flex justify-between items-end mb-6">
+            <div>
+                <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight">Viajes Asignados</h2>
+                <p class="text-gray-500 mt-1">Sigue en tiempo real tus facturas y status</p>
+            </div>
+            <button @click="fetchViajes()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow flex items-center transition">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                Actualizar
+            </button>
+        </div>
+
+        <div x-show="error" style="display: none;" class="bg-red-50 border-l-4 border-red-500 p-4 mb-6 rounded">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <svg class="h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" /></svg>
+                </div>
+                <div class="ml-3">
+                    <p class="text-sm text-red-700" x-text="error"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Trips Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <template x-for="viaje in viajes" :key="viaje.id">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition">
+                    <div class="px-6 py-4 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
+                        <span class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Viaje #<span x-text="viaje.id"></span></span>
+                        <span class="px-2.5 py-0.5 rounded-full text-xs font-medium" 
+                              :class="{
+                                  'bg-yellow-100 text-yellow-800': viaje.status === 'creado',
+                                  'bg-blue-100 text-blue-800': viaje.status === 'en_ruta',
+                                  'bg-green-100 text-green-800': viaje.status === 'entregado',
+                                  'bg-gray-100 text-gray-800': viaje.status === 'cancelado'
+                              }" 
+                              x-text="viaje.status">
+                        </span>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex space-x-4 mb-4">
+                            <div class="flex-1">
+                                <p class="text-xs text-gray-500">Origen</p>
+                                <p class="font-medium text-gray-900 truncate" x-text="viaje.origen"></p>
+                            </div>
+                            <div class="flex-1 text-right">
+                                <p class="text-xs text-gray-500">Destino</p>
+                                <p class="font-medium text-gray-900 truncate" x-text="viaje.destino"></p>
+                            </div>
+                        </div>
+                        <div class="border-t border-gray-100 pt-4 mt-4 flex items-center justify-between">
+                            <span class="text-xs text-gray-500">Actualizado <span x-text="formatDate(viaje.updated_at)"></span></span>
+                            <button class="text-sm text-blue-600 font-medium hover:text-blue-800">Ver Detalles &rarr;</button>
+                        </div>
+                    </div>
+                </div>
+            </template>
+            <div x-show="viajes.length === 0 && !error" class="col-span-1 md:col-span-2 lg:col-span-3 text-center py-12 bg-white rounded-xl border border-dashed border-gray-300">
+                <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                </svg>
+                <h3 class="mt-2 text-sm font-medium text-gray-900">No hay viajes activos</h3>
+                <p class="mt-1 text-sm text-gray-500">Cuando se asigne un nuevo viaje aparecerá aquí.</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('portalCliente', () => ({
+                viajes: [],
+                error: null,
+                
+                init() {
+                    this.fetchViajes();
+                },
+
+                async fetchViajes() {
+                    this.error = null;
+                    try {
+                        const response = await fetch('/api/viajes', {
+                            headers: { 'Accept': 'application/json' }
+                        });
+                        
+                        if (!response.ok) {
+                            if(response.status === 401 || response.status === 403) {
+                                this.error = "No autorizado. Inicie sesión para ver sus viajes.";
+                            } else {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+                        } else {
+                             // En producción, la API ya filtrará por middleware de cliente
+                             this.viajes = await response.json();
+                        }
+                    } catch (e) {
+                        this.error = "Error al obtener los viajes: " + e.message;
+                    }
+                },
+                
+                formatDate(dateStr) {
+                    if(!dateStr) return '';
+                    const d = new Date(dateStr);
+                    return d.toLocaleDateString();
+                }
+            }));
+        });
+    </script>
+</body>
+</html>

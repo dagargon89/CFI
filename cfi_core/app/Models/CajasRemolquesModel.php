@@ -28,7 +28,11 @@ class CajasRemolquesModel extends Model
     protected $deletedField  = 'deleted_at';
 
     // Validation
-    protected $validationRules      = [];
+    protected $validationRules      = [
+        'economico' => 'required|alpha_numeric|max_length[50]|is_unique[cajas_remolques.economico,id,{id}]',
+        'subtipo'   => 'required|string|max_length[100]',
+        'status'    => 'required|in_list[disponible,en_ruta,taller,baja]',
+    ];
     protected $validationMessages   = [];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;

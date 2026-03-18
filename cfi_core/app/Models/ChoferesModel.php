@@ -28,7 +28,11 @@ class ChoferesModel extends Model
     protected $deletedField  = 'deleted_at';
 
     // Validation
-    protected $validationRules      = [];
+    protected $validationRules      = [
+        'nombre'           => 'required|string|max_length[255]',
+        'numero_licencia'  => 'required|alpha_numeric_space|max_length[100]|is_unique[choferes.numero_licencia,id,{id}]',
+        'status'           => 'required|in_list[activo,inactivo,en_viaje]',
+    ];
     protected $validationMessages   = [];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;

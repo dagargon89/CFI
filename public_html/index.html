@@ -9,17 +9,22 @@
 </head>
 <body class="bg-gray-100 text-gray-900 font-sans antialiased overflow-hidden" x-data="pizarronApp()">
 
-<div class="flex h-screen bg-gray-100">
+<div class="flex h-screen bg-gray-100" x-show="user" style="display: none;">
     <!-- Sidebar -->
     <aside class="w-64 bg-slate-900 text-gray-300 flex flex-col shadow-xl z-20">
         <div class="h-16 flex items-center px-6 bg-slate-950 text-white font-bold text-lg tracking-wider border-b border-gray-800">
             📊 CFI Logístico
         </div>
         <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
-            <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 mt-4 px-2">Nivel 1</div>
-            <button @click="setModule('activos', 'tractocamiones')" :class="activeModule === 'activos' ? 'bg-blue-600 text-white' : 'hover:bg-slate-800 hover:text-white'" class="w-full text-left px-4 py-2 rounded-lg font-medium transition flex items-center">
-                🚛 Control de Activos
-            </button>
+            <!-- Nivel 1 - Solo visible para Tráfico/Admin/Mantenimiento -->
+            <template x-if="!hasRole('cliente')">
+                <div>
+                    <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 mt-4 px-2">Nivel 1</div>
+                    <button @click="setModule('activos', 'tractocamiones')" :class="activeModule === 'activos' ? 'bg-blue-600 text-white' : 'hover:bg-slate-800 hover:text-white'" class="w-full text-left px-4 py-2 rounded-lg font-medium transition flex items-center">
+                        🚛 Control de Activos
+                    </button>
+                </div>
+            </template>
             
             <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 mt-6 px-2">Nivel 2</div>
             <button @click="setModule('operaciones', 'viajes')" :class="activeModule === 'operaciones' ? 'bg-blue-600 text-white' : 'hover:bg-slate-800 hover:text-white'" class="w-full text-left px-4 py-2 rounded-lg font-medium transition flex items-center">
@@ -29,17 +34,31 @@
                 📎 Evidencias (XML/PDF)
             </button>
 
-            <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 mt-6 px-2">Nivel 3</div>
-            <button @click="setModule('mantenimiento', 'ordenes_trabajo')" :class="activeModule === 'mantenimiento' ? 'bg-blue-600 text-white' : 'hover:bg-slate-800 hover:text-white'" class="w-full text-left px-4 py-2 rounded-lg font-medium transition flex items-center">
-                🛠️ Taller y Fallas
-            </button>
+            <!-- Nivel 3 - Solo visible para Mantenimiento/Admin -->
+            <template x-if="hasRole('admin') || hasRole('mantenimiento')">
+                <div>
+                    <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 mt-6 px-2">Nivel 3</div>
+                    <button @click="setModule('mantenimiento', 'ordenes_trabajo')" :class="activeModule === 'mantenimiento' ? 'bg-blue-600 text-white' : 'hover:bg-slate-800 hover:text-white'" class="w-full text-left px-4 py-2 rounded-lg font-medium transition flex items-center">
+                        🛠️ Taller y Fallas
+                    </button>
+                    <button @click="setModule('mantenimiento', 'insumos')" :class="activeTab === 'insumos' ? 'bg-slate-700 text-white' : 'hover:bg-slate-800 hover:text-white'" class="w-full text-left px-4 py-2 rounded-lg font-medium transition flex items-center pl-8">
+                        📦 Insumos / Refacciones
+                    </button>
+                </div>
+            </template>
 
-            <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 mt-6 px-2">Nivel 4</div>
-            <button @click="setModule('finanzas', 'gastos_operativos')" :class="activeModule === 'finanzas' ? 'bg-emerald-600 text-white' : 'hover:bg-slate-800 hover:text-white'" class="w-full text-left px-4 py-2 rounded-lg font-medium transition flex items-center">
-                💸 Finanzas y Auditoría
-            </button>
+            <!-- Nivel 4 - Solo visible para Finanzas/Admin -->
+            <template x-if="hasRole('admin') || hasRole('finanzas')">
+                <div>
+                    <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 mt-6 px-2">Nivel 4</div>
+                    <button @click="setModule('finanzas', 'gastos_operativos')" :class="activeModule === 'finanzas' ? 'bg-emerald-600 text-white' : 'hover:bg-slate-800 hover:text-white'" class="w-full text-left px-4 py-2 rounded-lg font-medium transition flex items-center">
+                        💸 Finanzas y Auditoría
+                    </button>
+                </div>
+            </template>
         </nav>
         <div class="p-4 bg-slate-950">
+            <div class="text-xs text-center text-gray-500 mb-2 truncate" x-text="user.email"></div>
             <a href="/logout" class="block w-full text-center bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md font-medium transition text-sm">Cerrar Sesión</a>
         </div>
     </aside>
@@ -50,6 +69,10 @@
         <header class="h-16 bg-white shadow-sm flex items-center px-8 z-10 justify-between">
             <h2 class="text-xl font-semibold text-gray-800 capitalize" x-text="activeModule.replace('_', ' ')"></h2>
             <div x-show="error" class="bg-red-100 text-red-700 px-4 py-1 rounded shadow-sm text-sm font-bold" x-text="error" style="display: none;"></div>
+            <div class="flex items-center space-x-2">
+                <span class="text-xs font-bold text-gray-400 uppercase tracking-widest" x-text="user.groups[0] || 'Usuario'"></span>
+                <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold" x-text="user.username[0].toUpperCase()"></div>
+            </div>
         </header>
 
         <!-- Dynamic Workspace -->
@@ -72,6 +95,7 @@
             <div x-show="activeModule === 'mantenimiento'" style="display: none;" class="mb-6">
                  <nav class="flex space-x-4 border-b border-gray-200">
                     <button @click="activeTab = 'ordenes_trabajo'; fetchData()" :class="activeTab === 'ordenes_trabajo' ? 'border-blue-500 text-blue-600 border-b-2' : 'text-gray-500 hover:text-gray-700'" class="pb-2 px-1 font-medium text-sm">Órdenes de Trabajo Activas</button>
+                    <button @click="activeTab = 'insumos'; fetchData()" :class="activeTab === 'insumos' ? 'border-blue-500 text-blue-600 border-b-2' : 'text-gray-500 hover:text-gray-700'" class="pb-2 px-1 font-medium text-sm">Insumos y Refacciones</button>
                  </nav>
             </div>
 
@@ -88,7 +112,10 @@
             <div class="bg-white shadow rounded-lg border border-gray-200">
                 <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center bg-gray-50 rounded-t-lg">
                     <h3 class="text-lg font-medium text-gray-900 capitalize" x-text="activeTab.replace('_', ' ')"></h3>
-                    <button @click="openModal()" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 text-sm font-semibold shadow-sm transition">+ Nuevo Registro</button>
+                    <!-- Solo Admin/Operadores pueden crear registros. Clientes No. -->
+                    <template x-if="!hasRole('cliente')">
+                        <button @click="openModal()" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 text-sm font-semibold shadow-sm transition">+ Nuevo Registro</button>
+                    </template>
                 </div>
                 
                 <div class="overflow-x-auto">
@@ -98,7 +125,9 @@
                                 <template x-for="col in columns[activeTab]" :key="col">
                                     <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider" x-text="col.replace('_', ' ')"></th>
                                 </template>
-                                <th class="px-6 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Acción</th>
+                                <template x-if="!hasRole('cliente')">
+                                    <th class="px-6 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Acción</th>
+                                </template>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-100">
@@ -107,17 +136,19 @@
                                     <template x-for="col in columns[activeTab]" :key="col">
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                                             <span x-show="col === 'checklist_fallas' && item[col]" class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded" x-text="item[col]"></span>
-                                            <span x-show="col === 'monto'" class="text-emerald-700 font-bold" x-text="'$'+item[col]"></span>
-                                            <span x-show="col !== 'checklist_fallas' && col !== 'monto'" x-text="item[col]"></span>
+                                            <span x-show="col === 'monto' || col === 'costo_unitario'" class="text-emerald-700 font-bold" x-text="'$'+item[col]"></span>
+                                            <span x-show="col !== 'checklist_fallas' && col !== 'monto' && col !== 'costo_unitario'" x-text="item[col]"></span>
                                         </td>
                                     </template>
-                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <button @click="deleteRecord(item.id)" class="text-red-500 hover:text-red-700 transition">Eliminar</button>
-                                    </td>
+                                    <template x-if="!hasRole('cliente')">
+                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                            <button @click="deleteRecord(item.id)" class="text-red-500 hover:text-red-700 transition">Eliminar</button>
+                                        </td>
+                                    </template>
                                 </tr>
                             </template>
                             <tr x-show="!data[activeTab] || data[activeTab].length === 0">
-                                <td :colspan="columns[activeTab]?.length + 1" class="px-6 py-8 text-center text-sm text-gray-400">Sin datos en la tabla.</td>
+                                <td :colspan="columns[activeTab]?.length + (hasRole('cliente') ? 0 : 1)" class="px-6 py-8 text-center text-sm text-gray-400">Sin datos en la tabla.</td>
                             </tr>
                         </tbody>
                     </table>
@@ -152,7 +183,6 @@
 
                         <!-- Form Choferes -->
                         <template x-if="activeTab === 'choferes'">
-                            <!-- Missing forms content here ... -->
                             <div class="space-y-4">
                                 <div><label class="text-sm font-medium text-gray-700">Nombre</label><input type="text" x-model="formData.nombre" required class="w-full border-gray-300 rounded-md p-2 bg-gray-50 border mt-1"></div>
                                 <div><label class="text-sm font-medium text-gray-700">Licencia</label><input type="text" x-model="formData.numero_licencia" required class="w-full border-gray-300 rounded-md p-2 bg-gray-50 border mt-1"></div>
@@ -166,7 +196,6 @@
 
                         <!-- Form Cajas -->
                         <template x-if="activeTab === 'cajas_remolques'">
-                            <!-- Missing forms content here ... -->
                             <div class="space-y-4">
                                 <div><label class="text-sm font-medium text-gray-700">Económico (ID)</label><input type="text" x-model="formData.economico" required class="w-full border-gray-300 rounded-md p-2 bg-gray-50 border mt-1"></div>
                                 <div><label class="text-sm font-medium text-gray-700">Subtipo</label>
@@ -230,6 +259,19 @@
                             </div>
                         </template>
 
+                        <!-- Form Insumos (Mantenimiento) -->
+                        <template x-if="activeTab === 'insumos'">
+                            <div class="space-y-4">
+                                <div><label class="text-sm font-medium text-gray-700">ID Tractocamión</label><input type="number" x-model="formData.id_tractocamion" required class="w-full border-gray-300 rounded-md p-2 bg-gray-50 border mt-1"></div>
+                                <div><label class="text-sm font-medium text-gray-700">Nombre de Insumo / Refacción</label><input type="text" x-model="formData.nombre_insumo" required class="w-full border-gray-300 rounded-md p-2 bg-gray-50 border mt-1" placeholder="Ej. Llantas Michelin, Aceite Mobil"></div>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div><label class="text-sm font-medium text-gray-700">Cantidad</label><input type="number" step="0.01" x-model="formData.cantidad" required class="w-full border-gray-300 rounded-md p-2 bg-gray-50 border mt-1"></div>
+                                    <div><label class="text-sm font-medium text-gray-700">Costo Unitario ($)</label><input type="number" step="0.01" x-model="formData.costo_unitario" required class="w-full border-gray-300 rounded-md p-2 bg-gray-50 border mt-1"></div>
+                                </div>
+                                <div><label class="text-sm font-medium text-gray-700">Fecha Consumo</label><input type="date" x-model="formData.fecha_consumo" required class="w-full border-gray-300 rounded-md p-2 bg-gray-50 border mt-1"></div>
+                            </div>
+                        </template>
+
                         <!-- Form Finanzas (Gastos Operativos) -->
                         <template x-if="activeTab === 'gastos_operativos'">
                             <div class="space-y-4">
@@ -264,24 +306,43 @@
 <script>
     document.addEventListener('alpine:init', () => {
         Alpine.data('pizarronApp', () => ({
-            activeModule: 'activos', // activos | operaciones | mantenimiento | finanzas
-            activeTab: 'tractocamiones', 
+            user: null, // Identity from AuthMe
+            activeModule: 'operaciones', 
+            activeTab: 'viajes', 
             error: null,
             showModal: false,
-            data: { tractocamiones: [], choferes: [], cajas_remolques: [], viajes: [], evidencias: [], ordenes_trabajo: [], gastos_operativos: [] },
+            data: { tractocamiones: [], choferes: [], cajas_remolques: [], viajes: [], evidencias: [], ordenes_trabajo: [], gastos_operativos: [], insumos: [] },
             columns: {
                 tractocamiones: ['id', 'economico', 'placas', 'status_operativo'],
                 choferes: ['id', 'nombre', 'numero_licencia', 'status'],
                 cajas_remolques: ['id', 'economico', 'subtipo', 'status'],
                 viajes: ['id', 'id_chofer', 'id_tractocamion', 'origen', 'destino', 'status'],
-                evidencias: ['id', 'id_viaje', 'ruta_archivo'],
+                evidencias: ['id', 'id_viaje', 'nombre_original', 'tipo_documento'],
                 ordenes_trabajo: ['id', 'prioridad', 'id_tractocamion', 'descripcion_falla', 'status'],
+                insumos: ['id', 'id_tractocamion', 'nombre_insumo', 'cantidad', 'costo_unitario', 'fecha_consumo'],
                 gastos_operativos: ['id', 'id_tractocamion', 'id_viaje', 'tipo_gasto', 'monto', 'fecha']
             },
             formData: {},
             mantenimientoChecklist: { motor: false, llantas: false, frenos: false, luces: false },
             
-            init() { this.fetchData(); },
+            async init() { 
+                await this.fetchUser();
+                // Set default module based on role
+                if(this.hasRole('cliente')) { this.activeModule = 'operaciones'; this.activeTab = 'viajes'; }
+                else if(this.hasRole('mantenimiento')) { this.activeModule = 'mantenimiento'; this.activeTab = 'ordenes_trabajo'; }
+                else { this.activeModule = 'activos'; this.activeTab = 'tractocamiones'; }
+                this.fetchData(); 
+            },
+
+            async fetchUser() {
+                try {
+                    const res = await fetch('/api/auth/me');
+                    if(res.ok) this.user = await res.json();
+                    else window.location.href = '/login';
+                } catch(e) { window.location.href = '/login'; }
+            },
+
+            hasRole(role) { return this.user && this.user.groups.includes(role); },
             
             setModule(mod, tab) {
                 this.activeModule = mod;
@@ -295,8 +356,8 @@
                     let ep = (this.activeTab === 'cajas_remolques') ? 'cajas_remolques' : this.activeTab;
                     const response = await fetch('/api/' + ep, { headers: { 'Accept': 'application/json' }});
                     if (!response.ok) {
-                        if(response.status === 403) throw new Error("Acceso Restringido. Rol " + this.activeModule + " denegado (Políticas RBAC CodeIgniter).");
-                        throw new Error("Error obteniendo listado desde Base de Datos.");
+                        if(response.status === 403) throw new Error("Acceso Restringido (RBAC).");
+                        throw new Error("Error obteniendo datos.");
                     }
                     this.data[this.activeTab] = await response.json();
                 } catch (e) { this.error = "Error al conectar con API ("+this.activeTab+"): " + e.message; }
@@ -304,6 +365,7 @@
 
             openModal() {
                 this.formData = {};
+                // Defaults settings ...
                 if(this.activeTab === 'tractocamiones') this.formData.status_operativo = 'disponible';
                 if(this.activeTab === 'choferes') this.formData.status = 'activo';
                 if(this.activeTab === 'cajas_remolques') { this.formData.status = 'disponible'; this.formData.subtipo = 'seca'; }
@@ -312,11 +374,11 @@
                     this.formData.prioridad = 'alta'; 
                     this.mantenimientoChecklist = { motor: false, llantas: false, frenos: false, luces: false }; 
                 }
+                if(this.activeTab === 'insumos') this.formData.fecha_consumo = new Date().toISOString().split('T')[0];
                 if(this.activeTab === 'gastos_operativos') {
                     this.formData.tipo_gasto = 'diesel';
                     this.formData.fecha = new Date().toISOString().split('T')[0];
                 }
-                
                 this.showModal = true;
             },
 
@@ -327,13 +389,14 @@
                     if(this.activeTab === 'evidencias') {
                         const formPayload = new FormData();
                         formPayload.append('id_viaje', this.formData.id_viaje);
-                        formPayload.append('archivo', this.formData.archivo);
+                        formPayload.append('evidencia', this.formData.evidencia); // Matching controller field name
                         const res = await fetch('/api/' + ep, { method: 'POST', body: formPayload });
                         if(res.ok) { this.showModal=false; this.fetchData(); return; }
-                        else throw new Error("Error en upload");
+                        else { const e = await res.json(); alert("Error: " + JSON.stringify(e.messages)); return; }
                     }
 
                     if(this.activeTab === 'ordenes_trabajo') {
+                        this.formData.id_usuario_reporta = this.user.id;
                         this.formData.checklist_fallas = JSON.stringify(this.mantenimientoChecklist);
                     }
 
@@ -354,13 +417,13 @@
             },
 
             async deleteRecord(id) {
-                if(!confirm("¿Borrar definitivamente (Soft Delete) SQL registro #" + id + "?")) return;
+                if(!confirm("¿Borrar definitivamente registro #" + id + "?")) return;
                 try {
                     let ep = (this.activeTab === 'cajas_remolques') ? 'cajas_remolques' : this.activeTab;
                     const res = await fetch('/api/' + ep + '/' + id, { method: 'DELETE' });
                     if(res.ok) this.fetchData();
-                    else alert("Hubo un error de persistencia o restricción Shield borrando el registro.");
-                } catch (e) { alert("Error de I/O en Delete"); }
+                    else alert("Error de persistencia o restricción Shield.");
+                } catch (e) { alert("Error de I/O"); }
             }
         }));
     });

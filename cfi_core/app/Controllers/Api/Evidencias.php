@@ -12,6 +12,14 @@ class Evidencias extends ResourceController
 
     public function index()
     {
+        $user = auth()->user();
+        if ($user && $user->inGroup('cliente')) {
+            return $this->respond($this->model
+                ->select('evidencias_viaje.*')
+                ->join('viajes', 'viajes.id = evidencias_viaje.id_viaje')
+                ->where('viajes.id_cliente', $user->id)
+                ->findAll());
+        }
         return $this->respond($this->model->findAll());
     }
 

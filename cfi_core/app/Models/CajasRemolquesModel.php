@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class CajasRemolquesModel extends Model
 {
-    protected $table            = 'cajasremolques';
+    protected $table            = 'cajas_remolques';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
@@ -31,7 +31,7 @@ class CajasRemolquesModel extends Model
     protected $validationRules      = [
         'economico' => 'required|alpha_numeric|max_length[50]|is_unique[cajas_remolques.economico,id,{id}]',
         'subtipo'   => 'required|string|max_length[100]',
-        'status'    => 'required|in_list[disponible,en_ruta,taller,baja]',
+        'status'    => 'required|in_list[disponible,en_ruta,mantenimiento,baja]',
     ];
     protected $validationMessages   = [];
     protected $skipValidation       = false;

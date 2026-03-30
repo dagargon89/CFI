@@ -1,48 +1,135 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Central - CFI Logístico</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&family=Manrope:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-fixed-dim": "#D1A14E",
+                        "surface-container-lowest": "#0e0e0f",
+                        "on-error": "#ffb4ab",
+                        "surface-variant": "#353436",
+                        "surface-container-high": "#2a2a2b",
+                        "inverse-surface": "#e5e2e3",
+                        "primary": "#D1A14E",
+                        "on-primary-container": "#9E7632",
+                        "primary-container": "#4b391a",
+                        "surface-container-low": "#1b1b1c",
+                        "surface": "#131314",
+                        "on-secondary-fixed-variant": "#434b18",
+                        "secondary-container": "#434b18",
+                        "surface-container-highest": "#353436",
+                        "on-surface": "#e5e2e3",
+                        "on-secondary-container": "#b1bb7c",
+                        "on-primary": "#2e2100",
+                        "on-secondary": "#2d3404",
+                        "primary-fixed": "#f8e3be",
+                        "error": "#93000a",
+                        "inverse-on-surface": "#303031",
+                        "background": "#131314",
+                        "on-error-container": "#ffdad6",
+                        "tertiary-container": "#3d2b1f",
+                        "on-primary-fixed": "#2e2100",
+                        "surface-tint": "#D1A14E",
+                        "on-tertiary-container": "#ac9181",
+                        "tertiary-fixed-dim": "#dec1af",
+                        "surface-dim": "#131314",
+                        "on-tertiary": "#3f2c20",
+                        "tertiary": "#dec1af",
+                        "secondary": "#D1A14E",
+                        "outline-variant": "#4f453f",
+                        "on-secondary-fixed": "#191e00",
+                        "tertiary-fixed": "#fbddca",
+                        "on-tertiary-fixed-variant": "#574335",
+                        "on-background": "#e5e2e3",
+                        "secondary-fixed-dim": "#D1A14E",
+                        "on-surface-variant": "#d2c4bc",
+                        "on-primary-fixed-variant": "#6d5200",
+                        "secondary-fixed": "#f8e3be",
+                        "surface-container": "#1f1f20",
+                        "error-container": "#ffb4ab",
+                        "surface-bright": "#39393a",
+                        "outline": "#9b8e87",
+                        "inverse-primary": "#906d00",
+                        "on-tertiary-fixed": "#28180d"
+                    },
+                    fontFamily: {
+                        "headline": ["Noto Serif", "serif"],
+                        "body": ["Manrope", "sans-serif"],
+                        "label": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0px", "sm": "0px", "md": "0px", "lg": "0px", "xl": "0px", "2xl": "0px", "3xl": "0px", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; }
+        .matte-grain { position: relative; }
+        .matte-grain::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            opacity: 0.03;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+        /* Custom scrollbars for dark mode */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #131314; }
+        ::-webkit-scrollbar-thumb { background: #353436; }
+        ::-webkit-scrollbar-thumb:hover { background: #4f453f; }
+        select option { background-color: #1b1b1c; color: #e5e2e3; }
+        
+        [x-cloak] { display: none !important; }
+    </style>
 </head>
-<body class="bg-gray-100 text-gray-900 font-sans antialiased overflow-hidden" x-data="pizarronApp()">
+<body class="bg-surface text-on-surface font-body antialiased overflow-hidden selection:bg-primary selection:text-on-primary" x-data="pizarronApp()">
 
-<div class="flex h-screen bg-gray-100" x-show="user" style="display: none;">
+<div class="flex h-screen bg-surface" x-show="user" x-cloak>
     <!-- Sidebar -->
-    <aside class="w-64 bg-slate-900 text-gray-300 flex flex-col shadow-xl z-20">
-        <div class="h-16 flex items-center px-6 bg-slate-950 text-white font-bold text-lg tracking-wider border-b border-gray-800">
-            📊 CFI Logístico
+    <aside class="w-64 bg-surface-container-low text-on-surface flex flex-col z-20 border-r border-outline-variant/20 matte-grain">
+        <div class="h-16 flex items-center px-6 bg-surface text-primary font-headline font-bold text-lg tracking-wider border-b border-outline-variant/20">
+            <span class="material-symbols-outlined mr-2">architecture</span>
+            CFI Transporte
         </div>
         <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
             <!-- Nivel 1 - Solo visible para Tráfico/Admin/Mantenimiento -->
             <template x-if="!hasRole('cliente')">
                 <div>
-                    <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 mt-4 px-2">Nivel 1</div>
-                    <button @click="setModule('activos', 'tractocamiones')" :class="activeModule === 'activos' ? 'bg-blue-600 text-white' : 'hover:bg-slate-800 hover:text-white'" class="w-full text-left px-4 py-2 rounded-lg font-medium transition flex items-center">
-                        🚛 Control de Activos
+                    <div class="text-[10px] font-label text-outline uppercase tracking-[0.2em] mb-2 mt-4 px-2">Nivel 1</div>
+                    <button @click="setModule('activos', 'tractocamiones')" :class="activeModule === 'activos' ? 'bg-primary/10 text-primary border-r-2 border-primary' : 'hover:bg-surface-container-high hover:text-primary text-on-surface-variant'" class="w-full text-left px-4 py-2 font-medium font-body transition-colors flex items-center">
+                        <span class="material-symbols-outlined text-[20px] mr-3">local_shipping</span> Activos
                     </button>
                 </div>
             </template>
             
-            <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 mt-6 px-2">Nivel 2</div>
-            <button @click="setModule('operaciones', 'viajes')" :class="activeModule === 'operaciones' ? 'bg-blue-600 text-white' : 'hover:bg-slate-800 hover:text-white'" class="w-full text-left px-4 py-2 rounded-lg font-medium transition flex items-center">
-                🗺️ Solicitudes y Viajes
+            <div class="text-[10px] font-label text-outline uppercase tracking-[0.2em] mb-2 mt-6 px-2">Nivel 2</div>
+            <button @click="setModule('operaciones', 'viajes')" :class="activeModule === 'operaciones' ? 'bg-primary/10 text-primary border-r-2 border-primary' : 'hover:bg-surface-container-high hover:text-primary text-on-surface-variant'" class="w-full text-left px-4 py-2 font-medium font-body transition-colors flex items-center">
+                <span class="material-symbols-outlined text-[20px] mr-3">route</span> Viajes
             </button>
-            <button @click="setModule('operaciones', 'evidencias')" :class="activeTab === 'evidencias' ? 'bg-slate-700 text-white' : 'hover:bg-slate-800 hover:text-white'" class="w-full text-left px-4 py-2 rounded-lg font-medium transition flex items-center pl-8">
-                📎 Evidencias (XML/PDF)
+            <button @click="setModule('operaciones', 'evidencias')" :class="activeTab === 'evidencias' ? 'bg-surface-container-highest text-primary' : 'hover:bg-surface-container-high hover:text-primary text-on-surface-variant'" class="w-full text-left px-4 py-2 font-medium transition-colors flex items-center pl-10 text-sm">
+                <span class="material-symbols-outlined text-[18px] mr-3">description</span> Evidencias
             </button>
 
             <!-- Nivel 3 - Solo visible para Mantenimiento/Admin -->
             <template x-if="hasRole('admin') || hasRole('mantenimiento')">
                 <div>
-                    <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 mt-6 px-2">Nivel 3</div>
-                    <button @click="setModule('mantenimiento', 'ordenes_trabajo')" :class="activeModule === 'mantenimiento' ? 'bg-blue-600 text-white' : 'hover:bg-slate-800 hover:text-white'" class="w-full text-left px-4 py-2 rounded-lg font-medium transition flex items-center">
-                        🛠️ Taller y Fallas
+                    <div class="text-[10px] font-label text-outline uppercase tracking-[0.2em] mb-2 mt-6 px-2">Nivel 3</div>
+                    <button @click="setModule('mantenimiento', 'ordenes_trabajo')" :class="activeModule === 'mantenimiento' ? 'bg-primary/10 text-primary border-r-2 border-primary' : 'hover:bg-surface-container-high hover:text-primary text-on-surface-variant'" class="w-full text-left px-4 py-2 font-medium font-body transition-colors flex items-center">
+                        <span class="material-symbols-outlined text-[20px] mr-3">build</span> Taller
                     </button>
-                    <button @click="setModule('mantenimiento', 'insumos')" :class="activeTab === 'insumos' ? 'bg-slate-700 text-white' : 'hover:bg-slate-800 hover:text-white'" class="w-full text-left px-4 py-2 rounded-lg font-medium transition flex items-center pl-8">
-                        📦 Insumos / Refacciones
+                    <button @click="setModule('mantenimiento', 'insumos')" :class="activeTab === 'insumos' ? 'bg-surface-container-highest text-primary' : 'hover:bg-surface-container-high hover:text-primary text-on-surface-variant'" class="w-full text-left px-4 py-2 font-medium transition-colors flex items-center pl-10 text-sm">
+                        <span class="material-symbols-outlined text-[18px] mr-3">inventory</span> Insumos
                     </button>
                 </div>
             </template>
@@ -50,105 +137,127 @@
             <!-- Nivel 4 - Solo visible para Finanzas/Admin -->
             <template x-if="hasRole('admin') || hasRole('finanzas')">
                 <div>
-                    <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 mt-6 px-2">Nivel 4</div>
-                    <button @click="setModule('finanzas', 'gastos_operativos')" :class="activeModule === 'finanzas' ? 'bg-emerald-600 text-white' : 'hover:bg-slate-800 hover:text-white'" class="w-full text-left px-4 py-2 rounded-lg font-medium transition flex items-center">
-                        💸 Finanzas y Auditoría
+                    <div class="text-[10px] font-label text-outline uppercase tracking-[0.2em] mb-2 mt-6 px-2">Nivel 4</div>
+                    <button @click="setModule('finanzas', 'gastos_operativos')" :class="activeModule === 'finanzas' ? 'bg-primary/10 text-primary border-r-2 border-primary' : 'hover:bg-surface-container-high hover:text-primary text-on-surface-variant'" class="w-full text-left px-4 py-2 font-medium font-body transition-colors flex items-center">
+                        <span class="material-symbols-outlined text-[20px] mr-3">account_balance</span> Finanzas
                     </button>
                 </div>
             </template>
         </nav>
-        <div class="p-4 bg-slate-950">
-            <div class="text-xs text-center text-gray-500 mb-2 truncate" x-text="user.email"></div>
-            <a href="/logout" class="block w-full text-center bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md font-medium transition text-sm">Cerrar Sesión</a>
+        <div class="p-6 bg-surface-container-lowest border-t border-outline-variant/20">
+            <div class="text-[10px] font-label text-outline mb-4 truncate text-center" x-text="user.email"></div>
+            <a href="/logout" class="block w-full text-center border border-error text-error hover:bg-error/10 px-4 py-2 font-label uppercase tracking-widest font-bold transition-colors text-[10px]">Cerrar Sesión</a>
         </div>
     </aside>
 
     <!-- Main Content -->
-    <main class="flex-1 flex flex-col h-screen overflow-hidden">
+    <main class="flex-1 flex flex-col h-screen overflow-hidden bg-surface">
         <!-- Topbar -->
-        <header class="h-16 bg-white shadow-sm flex items-center px-8 z-10 justify-between">
-            <h2 class="text-xl font-semibold text-gray-800 capitalize" x-text="activeModule.replace('_', ' ')"></h2>
-            <div x-show="error" class="bg-red-100 text-red-700 px-4 py-1 rounded shadow-sm text-sm font-bold" x-text="error" style="display: none;"></div>
-            <div class="flex items-center space-x-2">
-                <span class="text-xs font-bold text-gray-400 uppercase tracking-widest" x-text="user.groups[0] || 'Usuario'"></span>
-                <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold" x-text="user.username[0].toUpperCase()"></div>
+        <header class="h-16 bg-surface-container-low border-b border-outline-variant/20 flex items-center px-8 z-10 justify-between matte-grain">
+            <h2 class="text-xl font-headline font-bold text-on-surface capitalize tracking-wide" x-text="activeModule.replace('_', ' ')"></h2>
+            <div x-show="error" class="bg-error/20 border border-error text-error-container px-4 py-1 flex items-center font-label text-[10px] uppercase tracking-widest shadow-sm font-bold" x-text="error" style="display: none;"></div>
+            <div class="flex items-center space-x-4">
+                <span class="text-[10px] font-label text-outline uppercase tracking-[0.2em]" x-text="user.groups[0] || 'Usuario'"></span>
+                <div class="w-8 h-8 bg-surface-container-highest border border-outline-variant/30 text-primary flex items-center justify-center font-headline font-bold" x-text="user.username[0].toUpperCase()"></div>
             </div>
         </header>
 
         <!-- Dynamic Workspace -->
-        <div class="flex-1 overflow-y-auto p-8">
-            
-            <div x-show="activeModule === 'activos'" style="display: none;" class="mb-6">
-                <nav class="flex space-x-4 border-b border-gray-200">
-                    <button @click="activeTab = 'tractocamiones'; fetchData()" :class="activeTab === 'tractocamiones' ? 'border-blue-500 text-blue-600 border-b-2' : 'text-gray-500 hover:text-gray-700'" class="pb-2 px-1 font-medium text-sm">Tractocamiones</button>
-                    <button @click="activeTab = 'choferes'; fetchData()" :class="activeTab === 'choferes' ? 'border-blue-500 text-blue-600 border-b-2' : 'text-gray-500 hover:text-gray-700'" class="pb-2 px-1 font-medium text-sm">Choferes</button>
-                    <button @click="activeTab = 'cajas_remolques'; fetchData()" :class="activeTab === 'cajas_remolques' ? 'border-blue-500 text-blue-600 border-b-2' : 'text-gray-500 hover:text-gray-700'" class="pb-2 px-1 font-medium text-sm">Cajas/Remolques</button>
+        <div class="flex-1 overflow-y-auto p-8 relative">
+            <div class="absolute inset-0 bg-surface -z-10 matte-grain"></div>
+
+            <div x-show="activeModule === 'activos'" style="display: none;" class="mb-8">
+                <nav class="flex space-x-6 border-b border-outline-variant/20">
+                    <button @click="activeTab = 'tractocamiones'; fetchData()" :class="activeTab === 'tractocamiones' ? 'text-primary border-b-2 border-primary' : 'text-outline hover:text-on-surface'" class="pb-3 px-1 font-label text-[10px] uppercase tracking-widest transition-colors">Tractocamiones</button>
+                    <button @click="activeTab = 'choferes'; fetchData()" :class="activeTab === 'choferes' ? 'text-primary border-b-2 border-primary' : 'text-outline hover:text-on-surface'" class="pb-3 px-1 font-label text-[10px] uppercase tracking-widest transition-colors">Choferes</button>
+                    <button @click="activeTab = 'cajas_remolques'; fetchData()" :class="activeTab === 'cajas_remolques' ? 'text-primary border-b-2 border-primary' : 'text-outline hover:text-on-surface'" class="pb-3 px-1 font-label text-[10px] uppercase tracking-widest transition-colors">Cajas/Remolques</button>
                 </nav>
             </div>
 
-            <div x-show="activeModule === 'operaciones'" style="display: none;" class="mb-6">
-                 <nav class="flex space-x-4 border-b border-gray-200">
-                    <button @click="activeTab = 'viajes'; fetchData()" :class="activeTab === 'viajes' ? 'border-blue-500 text-blue-600 border-b-2' : 'text-gray-500 hover:text-gray-700'" class="pb-2 px-1 font-medium text-sm">Bitácora de Viajes</button>
+            <div x-show="activeModule === 'operaciones'" style="display: none;" class="mb-8">
+                 <nav class="flex space-x-6 border-b border-outline-variant/20">
+                    <button @click="activeTab = 'viajes'; fetchData()" :class="activeTab === 'viajes' ? 'text-primary border-b-2 border-primary' : 'text-outline hover:text-on-surface'" class="pb-3 px-1 font-label text-[10px] uppercase tracking-widest transition-colors">Bitácora de Viajes</button>
                  </nav>
             </div>
 
-            <div x-show="activeModule === 'mantenimiento'" style="display: none;" class="mb-6">
-                 <nav class="flex space-x-4 border-b border-gray-200">
-                    <button @click="activeTab = 'ordenes_trabajo'; fetchData()" :class="activeTab === 'ordenes_trabajo' ? 'border-blue-500 text-blue-600 border-b-2' : 'text-gray-500 hover:text-gray-700'" class="pb-2 px-1 font-medium text-sm">Órdenes de Trabajo Activas</button>
-                    <button @click="activeTab = 'insumos'; fetchData()" :class="activeTab === 'insumos' ? 'border-blue-500 text-blue-600 border-b-2' : 'text-gray-500 hover:text-gray-700'" class="pb-2 px-1 font-medium text-sm">Insumos y Refacciones</button>
+            <div x-show="activeModule === 'mantenimiento'" style="display: none;" class="mb-8">
+                 <nav class="flex space-x-6 border-b border-outline-variant/20">
+                    <button @click="activeTab = 'ordenes_trabajo'; fetchData()" :class="activeTab === 'ordenes_trabajo' ? 'text-primary border-b-2 border-primary' : 'text-outline hover:text-on-surface'" class="pb-3 px-1 font-label text-[10px] uppercase tracking-widest transition-colors">Órdenes de Trabajo Activas</button>
+                    <button @click="activeTab = 'insumos'; fetchData()" :class="activeTab === 'insumos' ? 'text-primary border-b-2 border-primary' : 'text-outline hover:text-on-surface'" class="pb-3 px-1 font-label text-[10px] uppercase tracking-widest transition-colors">Insumos y Refacciones</button>
                  </nav>
             </div>
 
-            <div x-show="activeModule === 'finanzas'" style="display: none;" class="mb-6 flex justify-between items-center">
-                 <nav class="flex space-x-4 border-b border-gray-200 flex-1">
-                    <button @click="activeTab = 'gastos_operativos'; fetchData()" :class="activeTab === 'gastos_operativos' ? 'border-emerald-500 text-emerald-600 border-b-2' : 'text-gray-500 hover:text-gray-700'" class="pb-2 px-1 font-medium text-sm">Gastos Operativos (Diésel, Casetas)</button>
+            <div x-show="activeModule === 'finanzas'" style="display: none;" class="mb-8 flex justify-between items-center">
+                 <nav class="flex space-x-6 border-b border-outline-variant/20 flex-1">
+                    <button @click="activeTab = 'gastos_operativos'; fetchData()" :class="activeTab === 'gastos_operativos' ? 'text-primary border-b-2 border-primary' : 'text-outline hover:text-on-surface'" class="pb-3 px-1 font-label text-[10px] uppercase tracking-widest transition-colors">Gastos Operativos</button>
                  </nav>
-                 <a href="/api/exportacion/gastos" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 flex items-center rounded-md font-semibold text-sm transition shadow-sm ml-4">
-                     📥 Exportar Excel/CSV Maestro
+                 <a href="/api/exportacion/gastos" target="_blank" class="bg-primary/10 border border-primary text-primary hover:bg-primary/20 px-6 py-2 flex items-center font-label text-[10px] uppercase tracking-widest font-bold transition-colors ml-4">
+                     <span class="material-symbols-outlined text-[16px] mr-2">download</span> Exportar Data
                  </a>
             </div>
 
             <!-- Data Table Universal -->
-            <div class="bg-white shadow rounded-lg border border-gray-200">
-                <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center bg-gray-50 rounded-t-lg">
-                    <h3 class="text-lg font-medium text-gray-900 capitalize" x-text="activeTab.replace('_', ' ')"></h3>
+            <div class="bg-surface-container-low border border-outline-variant/20 relative shadow-2xl">
+                <div class="absolute inset-0 matte-grain pointer-events-none"></div>
+                
+                <div class="px-8 py-6 border-b border-outline-variant/20 flex justify-between items-center bg-surface-container-high/50 relative z-10">
+                    <h3 class="text-xl font-headline font-bold text-on-surface capitalize" x-text="activeTab.replace('_', ' ')"></h3>
                     <!-- Solo Admin/Operadores pueden crear registros. Clientes No. -->
                     <template x-if="!hasRole('cliente')">
-                        <button @click="openModal()" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 text-sm font-semibold shadow-sm transition">+ Nuevo Registro</button>
+                        <button @click="openModal()" class="bg-primary text-on-primary px-6 py-3 hover:brightness-110 font-label text-[10px] uppercase tracking-widest font-bold transition-all flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[18px]">add</span> Nuevo Registro
+                        </button>
                     </template>
                 </div>
                 
-                <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-white">
+                <div class="overflow-x-auto relative z-10">
+                    <table class="min-w-full divide-y divide-outline-variant/20">
+                        <thead class="bg-surface-container-high">
                             <tr>
                                 <template x-for="col in columns[activeTab]" :key="col">
-                                    <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider" x-text="col.replace('_', ' ')"></th>
+                                    <th class="px-8 py-4 text-left font-label text-[10px] text-outline uppercase tracking-[0.15em]" x-text="col.replace('_', ' ')"></th>
                                 </template>
                                 <template x-if="!hasRole('cliente')">
-                                    <th class="px-6 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Acción</th>
+                                    <th class="px-8 py-4 text-right font-label text-[10px] text-outline uppercase tracking-[0.15em]">Control</th>
                                 </template>
                             </tr>
                         </thead>
-                        <tbody class="bg-white divide-y divide-gray-100">
+                        <tbody class="divide-y divide-outline-variant/10 bg-surface-container-low">
                             <template x-for="item in data[activeTab]" :key="item.id">
-                                <tr :class="(activeTab === 'ordenes_trabajo' && item.prioridad === 'alta') ? 'bg-red-50' : 'hover:bg-gray-50'">
+                                <tr :class="(activeTab === 'ordenes_trabajo' && item.prioridad === 'alta') ? 'bg-error/10 border-l-4 border-error' : 'hover:bg-surface-container-highest transition-colors group'">
                                     <template x-for="col in columns[activeTab]" :key="col">
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                            <span x-show="col === 'checklist_fallas' && item[col]" class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded" x-text="item[col]"></span>
-                                            <span x-show="col === 'monto' || col === 'costo_unitario'" class="text-emerald-700 font-bold" x-text="'$'+item[col]"></span>
-                                            <span x-show="col !== 'checklist_fallas' && col !== 'monto' && col !== 'costo_unitario'" x-text="item[col]"></span>
+                                        <td class="px-8 py-4 whitespace-nowrap text-sm text-on-surface-variant font-body">
+                                            <span x-show="col === 'checklist_fallas' && item[col]" class="text-[10px] font-label uppercase tracking-widest bg-error/20 text-error-container border border-error/30 px-2 py-1" x-text="item[col]"></span>
+                                            
+                                            <span x-show="col === 'monto' || col === 'costo_unitario'" class="text-primary font-body font-bold text-lg" x-text="new Intl.NumberFormat('en-US', {style: 'currency', currency:'USD'}).format(item[col])"></span>
+                                            
+                                            <!-- Status badges styling -->
+                                            <span x-show="col === 'status_operativo' || col === 'status'" 
+                                                  class="inline-flex items-center px-3 py-1 font-label text-[10px] uppercase tracking-widest border"
+                                                  :class="{
+                                                      'bg-primary/10 text-primary border-primary/20': ['creado', 'disponible', 'activo'].includes(item[col]),
+                                                      'bg-surface-container-highest text-outline border-outline-variant/20': ['inactivo', 'mantenimiento', 'cancelado'].includes(item[col]),
+                                                      'bg-[#434b18]/20 text-[#c3cc8c] border-[#434b18]/50': ['en_ruta', 'en_viaje', 'entregado'].includes(item[col])
+                                                  }" 
+                                                  x-text="item[col]"></span>
+
+                                            <span x-show="col !== 'checklist_fallas' && col !== 'monto' && col !== 'costo_unitario' && col !== 'status_operativo' && col !== 'status'" x-text="item[col]"></span>
                                         </td>
                                     </template>
                                     <template x-if="!hasRole('cliente')">
-                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <button @click="deleteRecord(item.id)" class="text-red-500 hover:text-red-700 transition">Eliminar</button>
+                                        <td class="px-8 py-4 whitespace-nowrap text-right text-sm">
+                                            <button @click="deleteRecord(item.id)" class="text-outline hover:text-error transition-colors p-2" title="Eliminar Registro">
+                                                <span class="material-symbols-outlined text-[18px]">delete</span>
+                                            </button>
                                         </td>
                                     </template>
                                 </tr>
                             </template>
                             <tr x-show="!data[activeTab] || data[activeTab].length === 0">
-                                <td :colspan="columns[activeTab]?.length + (hasRole('cliente') ? 0 : 1)" class="px-6 py-8 text-center text-sm text-gray-400">Sin datos en la tabla.</td>
+                                <td :colspan="columns[activeTab]?.length + (hasRole('cliente') ? 0 : 1)" class="px-8 py-12 text-center text-sm font-body text-outline opacity-60">
+                                    <span class="material-symbols-outlined text-4xl mb-4 block opacity-50">data_alert</span>
+                                    No records available in this ledger.
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -159,23 +268,42 @@
     </main>
 
     <!-- Generic Modal Universal -->
-    <div x-show="showModal" style="display: none;" class="fixed inset-0 z-50 overflow-y-auto">
-        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div class="fixed inset-0 bg-gray-900 bg-opacity-60 transition-opacity" @click="showModal = false"></div>
+    <div x-show="showModal" style="display: none;" class="fixed inset-0 z-[100] overflow-y-auto">
+        <div class="flex items-center justify-center min-h-screen p-4 text-center sm:block sm:p-0">
+            <!-- Overlay -->
+            <div class="fixed inset-0 bg-[#0e0e0f]/90 transition-opacity" @click="showModal = false"></div>
             <span class="hidden sm:inline-block sm:align-middle sm:h-screen">&#8203;</span>
-            <div class="inline-block align-bottom bg-white rounded-xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                <form @submit.prevent="submitForm">
-                    <div class="bg-white px-6 pt-6 pb-6 border-b border-gray-100">
-                        <h3 class="text-xl font-bold text-gray-900 mb-6 capitalize text-center">Registrar <span x-text="activeTab.replace('_', ' ')"></span></h3>
+            
+            <!-- Modal Box -->
+            <div class="inline-block align-bottom bg-surface-container-low border border-outline-variant/30 text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-xl sm:w-full relative">
+                <div class="absolute inset-0 matte-grain pointer-events-none"></div>
+                
+                <form @submit.prevent="submitForm" class="relative z-10 flex flex-col h-full">
+                    <div class="bg-surface-container-high px-8 py-6 border-b border-outline-variant/20 flex justify-between items-center">
+                        <div>
+                            <span class="font-label text-[10px] uppercase tracking-widest text-primary mb-1 block">Data Entry</span>
+                            <h3 class="text-2xl font-headline font-bold text-on-surface capitalize">Configurar <span x-text="activeTab.replace('_', ' ')"></span></h3>
+                        </div>
+                        <button type="button" @click="showModal = false" class="text-outline hover:text-on-surface transition-colors">
+                            <span class="material-symbols-outlined">close</span>
+                        </button>
+                    </div>
+                    
+                    <div class="px-8 pt-8 pb-10 space-y-6 flex-grow">
                         
+                        <!-- Common input styling helper classes: 'mt-2 w-full bg-surface-container-lowest border border-outline-variant/30 text-on-surface p-3 font-body focus:border-primary focus:outline-none transition-colors' -->
+                        <!-- Label styling: 'text-[10px] font-label uppercase tracking-widest text-outline' -->
+
                         <!-- Form Tractos -->
                         <template x-if="activeTab === 'tractocamiones'">
-                            <div class="space-y-4">
-                                <div><label class="text-sm font-medium text-gray-700">Económico</label><input type="text" x-model="formData.economico" required class="mt-1 w-full border-gray-300 rounded-md p-2 bg-gray-50 border"></div>
-                                <div><label class="text-sm font-medium text-gray-700">Placas</label><input type="text" x-model="formData.placas" required class="mt-1 w-full border-gray-300 rounded-md p-2 bg-gray-50 border"></div>
-                                <div><label class="text-sm font-medium text-gray-700">Estatus</label>
-                                    <select x-model="formData.status_operativo" class="mt-1 w-full border-gray-300 rounded-md p-2 bg-gray-50 border">
-                                        <option value="disponible">Disponible</option><option value="en_ruta">En Ruta</option><option value="mantenimiento">Mantenimiento</option>
+                            <div class="space-y-6">
+                                <div><label class="text-[10px] font-label uppercase tracking-widest text-outline">Económico / UID</label>
+                                <input type="text" x-model="formData.economico" required class="mt-2 w-full bg-surface-container-lowest border border-outline-variant/30 text-on-surface p-3 font-body focus:border-primary focus:outline-none transition-colors"></div>
+                                <div><label class="text-[10px] font-label uppercase tracking-widest text-outline">Placas</label>
+                                <input type="text" x-model="formData.placas" required class="mt-2 w-full bg-surface-container-lowest border border-outline-variant/30 text-on-surface p-3 font-body focus:border-primary focus:outline-none transition-colors"></div>
+                                <div><label class="text-[10px] font-label uppercase tracking-widest text-outline">Estatus Operativo</label>
+                                    <select x-model="formData.status_operativo" class="mt-2 w-full bg-surface-container-lowest border border-outline-variant/30 text-on-surface p-3 font-body focus:border-primary focus:outline-none transition-colors">
+                                        <option value="disponible">En Terminal / Disponible</option><option value="en_ruta">Operando / En Ruta</option><option value="mantenimiento">Taller / Mantenimiento</option>
                                     </select>
                                 </div>
                             </div>
@@ -183,12 +311,14 @@
 
                         <!-- Form Choferes -->
                         <template x-if="activeTab === 'choferes'">
-                            <div class="space-y-4">
-                                <div><label class="text-sm font-medium text-gray-700">Nombre</label><input type="text" x-model="formData.nombre" required class="w-full border-gray-300 rounded-md p-2 bg-gray-50 border mt-1"></div>
-                                <div><label class="text-sm font-medium text-gray-700">Licencia</label><input type="text" x-model="formData.numero_licencia" required class="w-full border-gray-300 rounded-md p-2 bg-gray-50 border mt-1"></div>
-                                <div><label class="text-sm font-medium text-gray-700">Estatus</label>
-                                    <select x-model="formData.status" class="w-full border-gray-300 rounded-md p-2 bg-gray-50 border mt-1">
-                                        <option value="activo">Activo</option><option value="en_viaje">En Viaje</option><option value="inactivo">Inactivo</option>
+                            <div class="space-y-6">
+                                <div><label class="text-[10px] font-label uppercase tracking-widest text-outline">Nombre Competente</label>
+                                <input type="text" x-model="formData.nombre" required class="mt-2 w-full bg-surface-container-lowest border border-outline-variant/30 text-on-surface p-3 font-body focus:border-primary focus:outline-none transition-colors"></div>
+                                <div><label class="text-[10px] font-label uppercase tracking-widest text-outline">Registro Licencia</label>
+                                <input type="text" x-model="formData.numero_licencia" required class="mt-2 w-full bg-surface-container-lowest border border-outline-variant/30 text-on-surface p-3 font-body focus:border-primary focus:outline-none transition-colors"></div>
+                                <div><label class="text-[10px] font-label uppercase tracking-widest text-outline">Estado Asignación</label>
+                                    <select x-model="formData.status" class="mt-2 w-full bg-surface-container-lowest border border-outline-variant/30 text-on-surface p-3 font-body focus:border-primary focus:outline-none transition-colors">
+                                        <option value="activo">Base / Activo</option><option value="en_viaje">En Viaje</option><option value="inactivo">Desactivado / Descanso</option>
                                     </select>
                                 </div>
                             </div>
@@ -196,34 +326,44 @@
 
                         <!-- Form Cajas -->
                         <template x-if="activeTab === 'cajas_remolques'">
-                            <div class="space-y-4">
-                                <div><label class="text-sm font-medium text-gray-700">Económico (ID)</label><input type="text" x-model="formData.economico" required class="w-full border-gray-300 rounded-md p-2 bg-gray-50 border mt-1"></div>
-                                <div><label class="text-sm font-medium text-gray-700">Subtipo</label>
-                                    <select x-model="formData.subtipo" class="w-full border-gray-300 rounded-md p-2 bg-gray-50 border mt-1">
-                                        <option value="seca">Caja Seca</option><option value="refrigerada">Refrigerada</option><option value="plataforma">Plataforma</option>
-                                    </select>
-                                </div>
-                                <div><label class="text-sm font-medium text-gray-700">Estatus Operativo</label>
-                                    <select x-model="formData.status" class="w-full border-gray-300 rounded-md p-2 bg-gray-50 border mt-1">
-                                        <option value="disponible">Disponible</option><option value="en_ruta">En Ruta</option><option value="mantenimiento">Mantenimiento</option>
-                                    </select>
+                            <div class="space-y-6">
+                                <div><label class="text-[10px] font-label uppercase tracking-widest text-outline">Económico (UID)</label>
+                                <input type="text" x-model="formData.economico" required class="mt-2 w-full bg-surface-container-lowest border border-outline-variant/30 text-on-surface p-3 font-body focus:border-primary focus:outline-none transition-colors"></div>
+                                <div class="grid grid-cols-2 gap-6">
+                                    <div><label class="text-[10px] font-label uppercase tracking-widest text-outline">Especificación</label>
+                                        <select x-model="formData.subtipo" class="mt-2 w-full bg-surface-container-lowest border border-outline-variant/30 text-on-surface p-3 font-body focus:border-primary focus:outline-none transition-colors">
+                                            <option value="seca">Caja Seca Estándar</option><option value="refrigerada">Aislamiento Térmico (Refri)</option><option value="plataforma">Plataforma Abierta</option>
+                                        </select>
+                                    </div>
+                                    <div><label class="text-[10px] font-label uppercase tracking-widest text-outline">Estado</label>
+                                        <select x-model="formData.status" class="mt-2 w-full bg-surface-container-lowest border border-outline-variant/30 text-on-surface p-3 font-body focus:border-primary focus:outline-none transition-colors">
+                                            <option value="disponible">Patio</option><option value="en_ruta">Operación</option><option value="mantenimiento">Mantenimiento</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </template>
 
                         <!-- Form Viajes -->
                         <template x-if="activeTab === 'viajes'">
-                            <div class="space-y-4">
-                                <div><label class="text-sm font-medium text-gray-700">ID Tractocamión</label><input type="number" x-model="formData.id_tractocamion" required class="w-full border-gray-300 rounded-md p-2 bg-gray-50 border mt-1"></div>
-                                <div><label class="text-sm font-medium text-gray-700">ID Chofer</label><input type="number" x-model="formData.id_chofer" required class="w-full border-gray-300 rounded-md p-2 bg-gray-50 border mt-1"></div>
-                                <div><label class="text-sm font-medium text-gray-700">ID Cliente</label><input type="number" x-model="formData.id_cliente" required class="w-full border-gray-300 rounded-md p-2 bg-gray-50 border mt-1"></div>
-                                <div class="grid grid-cols-2 gap-4">
-                                    <div><label class="text-sm font-medium text-gray-700">Origen</label><input type="text" x-model="formData.origen" required class="w-full border-gray-300 rounded-md p-2 bg-gray-50 border mt-1"></div>
-                                    <div><label class="text-sm font-medium text-gray-700">Destino</label><input type="text" x-model="formData.destino" required class="w-full border-gray-300 rounded-md p-2 bg-gray-50 border mt-1"></div>
+                            <div class="space-y-6">
+                                <div class="grid grid-cols-2 gap-6">
+                                    <div><label class="text-[10px] font-label uppercase tracking-widest text-outline">Hardware: ID Tracto</label>
+                                    <input type="number" x-model="formData.id_tractocamion" required class="mt-2 w-full bg-surface-container-lowest border border-outline-variant/30 text-on-surface p-3 font-body focus:border-primary focus:outline-none transition-colors"></div>
+                                    <div><label class="text-[10px] font-label uppercase tracking-widest text-outline">Operador: ID Chofer</label>
+                                    <input type="number" x-model="formData.id_chofer" required class="mt-2 w-full bg-surface-container-lowest border border-outline-variant/30 text-on-surface p-3 font-body focus:border-primary focus:outline-none transition-colors"></div>
                                 </div>
-                                <div><label class="text-sm font-medium text-gray-700">Estatus</label>
-                                    <select x-model="formData.status" class="w-full border-gray-300 rounded-md p-2 bg-gray-50 border mt-1">
-                                        <option value="creado">Creado</option><option value="en_ruta">En Ruta</option><option value="entregado">Entregado</option>
+                                <div><label class="text-[10px] font-label uppercase tracking-widest text-outline">Entidad: ID Cliente</label>
+                                <input type="number" x-model="formData.id_cliente" required class="mt-2 w-full bg-surface-container-lowest border border-outline-variant/30 text-on-surface p-3 font-body focus:border-primary focus:outline-none transition-colors"></div>
+                                <div class="grid grid-cols-2 gap-6">
+                                    <div><label class="text-[10px] font-label uppercase tracking-widest text-outline">Nodo Salida</label>
+                                    <input type="text" x-model="formData.origen" required class="mt-2 w-full bg-surface-container-lowest border border-outline-variant/30 text-on-surface p-3 font-body focus:border-primary focus:outline-none transition-colors"></div>
+                                    <div><label class="text-[10px] font-label uppercase tracking-widest text-outline">Nodo Llegada</label>
+                                    <input type="text" x-model="formData.destino" required class="mt-2 w-full bg-surface-container-lowest border border-outline-variant/30 text-on-surface p-3 font-body focus:border-primary focus:outline-none transition-colors"></div>
+                                </div>
+                                <div><label class="text-[10px] font-label uppercase tracking-widest text-outline">Protocolo Fase</label>
+                                    <select x-model="formData.status" class="mt-2 w-full bg-surface-container-lowest border border-outline-variant/30 text-on-surface p-3 font-body focus:border-primary focus:outline-none transition-colors">
+                                        <option value="creado">01 - Inicializado</option><option value="en_ruta">02 - En Tránsito</option><option value="entregado">03 - Fin de Ciclo</option>
                                     </select>
                                 </div>
                             </div>
@@ -231,71 +371,90 @@
 
                         <!-- Form Evidencias (Files) -->
                         <template x-if="activeTab === 'evidencias'">
-                            <div class="space-y-4">
-                                <div><label class="text-sm font-medium text-gray-700">ID de Viaje Asociado</label><input type="number" x-model="formData.id_viaje" required class="w-full border-gray-300 rounded-md p-2 bg-gray-50 border mt-1"></div>
-                                <div><label class="text-sm font-medium text-gray-700">Archivo (PDF/XML)</label>
-                                     <input type="file" @change="formData.archivo = $event.target.files[0]" required class="w-full border-gray-300 rounded-md p-2 bg-gray-50 border mt-1 text-sm">
+                            <div class="space-y-6">
+                                <div><label class="text-[10px] font-label uppercase tracking-widest text-outline">Enlace a ID Viaje</label>
+                                <input type="number" x-model="formData.id_viaje" required class="mt-2 w-full bg-surface-container-lowest border border-outline-variant/30 text-on-surface p-3 font-body focus:border-primary focus:outline-none transition-colors"></div>
+                                <div><label class="text-[10px] font-label uppercase tracking-widest text-outline">Blob / Archivo Físico (PDF/XML)</label>
+                                     <input type="file" @change="formData.archivo = $event.target.files[0]" required class="mt-2 w-full bg-surface-container-lowest border border-outline-variant/30 text-on-surface p-3 font-body text-sm file:mr-4 file:py-2 file:px-4 file:border-0 file:text-[10px] file:font-semibold file:uppercase file:tracking-widest file:bg-primary/20 file:text-primary hover:file:bg-primary/30 transition-all cursor-pointer">
                                 </div>
                             </div>
                         </template>
 
                         <!-- Form Ordenes Trabajo (Mantenimiento) -->
                         <template x-if="activeTab === 'ordenes_trabajo'">
-                            <div class="space-y-4">
-                                <div><label class="text-sm font-medium text-gray-700">ID Tractocamión</label><input type="number" x-model="formData.id_tractocamion" required class="w-full border-gray-300 rounded-md p-2 bg-gray-50 border mt-1"></div>
-                                <div>
-                                    <label class="text-sm font-medium text-gray-700">Checklist Ágil</label>
-                                    <div class="grid grid-cols-2 gap-2 mt-2 bg-gray-50 p-3 rounded border">
-                                        <label><input type="checkbox" x-model="mantenimientoChecklist.motor"> Motor</label><label><input type="checkbox" x-model="mantenimientoChecklist.llantas"> Llantas</label>
-                                        <label><input type="checkbox" x-model="mantenimientoChecklist.frenos"> Frenos</label><label><input type="checkbox" x-model="mantenimientoChecklist.luces"> Luces</label>
+                            <div class="space-y-6">
+                                <div class="grid grid-cols-2 gap-6">
+                                    <div><label class="text-[10px] font-label uppercase tracking-widest text-outline">ID Tractocamión</label>
+                                    <input type="number" x-model="formData.id_tractocamion" required class="mt-2 w-full bg-surface-container-lowest border border-outline-variant/30 text-on-surface p-3 font-body focus:border-primary focus:outline-none transition-colors"></div>
+                                    <div><label class="text-[10px] font-label uppercase tracking-widest text-outline">Severidad / SLA</label>
+                                        <select x-model="formData.prioridad" class="mt-2 w-full bg-surface-container-lowest border border-error border-l-4 text-error p-3 font-body font-bold focus:outline-none transition-colors">
+                                            <option value="alta" class="text-error font-bold">ALTA (Bloqueo)</option><option value="media" class="text-primary font-bold">Media (Preventivo)</option><option value="baja" class="text-outline font-normal">Baja (Cosmético)</option>
+                                        </select>
                                     </div>
                                 </div>
-                                <div><label class="text-sm font-medium text-gray-700">Descripción Detallada</label><textarea x-model="formData.descripcion_falla" class="w-full border-gray-300 rounded-md p-2 bg-gray-50 border mt-1" rows="2"></textarea></div>
-                                <div><label class="text-sm font-medium text-gray-700">Prioridad</label>
-                                    <select x-model="formData.prioridad" class="w-full border-gray-300 rounded-md p-2 text-red-700 font-bold border mt-1">
-                                        <option value="baja">Baja</option><option value="media">Media</option><option value="alta">Alta</option>
-                                    </select>
+                                <div>
+                                    <label class="text-[10px] font-label uppercase tracking-widest text-outline">Diagnóstico Rápido</label>
+                                    <div class="grid grid-cols-2 gap-4 mt-2 bg-surface p-4 border border-outline-variant/20">
+                                        <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" x-model="mantenimientoChecklist.motor" class="form-checkbox text-primary focus:ring-primary focus:ring-offset-surface bg-surface-container-highest border-outline-variant"> <span class="text-sm font-body">Falla Motor</span></label>
+                                        <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" x-model="mantenimientoChecklist.llantas" class="form-checkbox text-primary focus:ring-primary focus:ring-offset-surface bg-surface-container-highest border-outline-variant"> <span class="text-sm font-body">Presión/Llantas</span></label>
+                                        <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" x-model="mantenimientoChecklist.frenos" class="form-checkbox text-primary focus:ring-primary focus:ring-offset-surface bg-surface-container-highest border-outline-variant"> <span class="text-sm font-body">Sistema Frenos</span></label>
+                                        <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" x-model="mantenimientoChecklist.luces" class="form-checkbox text-primary focus:ring-primary focus:ring-offset-surface bg-surface-container-highest border-outline-variant"> <span class="text-sm font-body">Eléctrico/Luces</span></label>
+                                    </div>
                                 </div>
+                                <div><label class="text-[10px] font-label uppercase tracking-widest text-outline">Log de Error Completo</label>
+                                <textarea x-model="formData.descripcion_falla" class="mt-2 w-full bg-surface-container-lowest border border-outline-variant/30 text-on-surface p-3 font-body focus:border-primary focus:outline-none transition-colors" rows="3" placeholder="Ingresa volcado de errores mecánicos o código de diagnóstico OBD"></textarea></div>
                             </div>
                         </template>
 
                         <!-- Form Insumos (Mantenimiento) -->
                         <template x-if="activeTab === 'insumos'">
-                            <div class="space-y-4">
-                                <div><label class="text-sm font-medium text-gray-700">ID Tractocamión</label><input type="number" x-model="formData.id_tractocamion" required class="w-full border-gray-300 rounded-md p-2 bg-gray-50 border mt-1"></div>
-                                <div><label class="text-sm font-medium text-gray-700">Nombre de Insumo / Refacción</label><input type="text" x-model="formData.nombre_insumo" required class="w-full border-gray-300 rounded-md p-2 bg-gray-50 border mt-1" placeholder="Ej. Llantas Michelin, Aceite Mobil"></div>
-                                <div class="grid grid-cols-2 gap-4">
-                                    <div><label class="text-sm font-medium text-gray-700">Cantidad</label><input type="number" step="0.01" x-model="formData.cantidad" required class="w-full border-gray-300 rounded-md p-2 bg-gray-50 border mt-1"></div>
-                                    <div><label class="text-sm font-medium text-gray-700">Costo Unitario ($)</label><input type="number" step="0.01" x-model="formData.costo_unitario" required class="w-full border-gray-300 rounded-md p-2 bg-gray-50 border mt-1"></div>
+                            <div class="space-y-6">
+                                <div><label class="text-[10px] font-label uppercase tracking-widest text-outline">Asignar a ID Tracto</label>
+                                <input type="number" x-model="formData.id_tractocamion" required class="mt-2 w-full bg-surface-container-lowest border border-outline-variant/30 text-on-surface p-3 font-body focus:border-primary focus:outline-none transition-colors"></div>
+                                <div><label class="text-[10px] font-label uppercase tracking-widest text-outline">SKU / Elemento</label>
+                                <input type="text" x-model="formData.nombre_insumo" required class="mt-2 w-full bg-surface-container-lowest border border-outline-variant/30 text-on-surface p-3 font-body focus:border-primary focus:outline-none transition-colors" placeholder="Ej. Filtro Combustible V8"></div>
+                                <div class="grid grid-cols-2 gap-6">
+                                    <div><label class="text-[10px] font-label uppercase tracking-widest text-outline">Volumen</label>
+                                    <input type="number" step="0.01" x-model="formData.cantidad" required class="mt-2 w-full bg-surface-container-lowest border border-outline-variant/30 text-on-surface p-3 font-body focus:border-primary focus:outline-none transition-colors"></div>
+                                    <div><label class="text-[10px] font-label uppercase tracking-widest text-outline">Costo Unitario ($)</label>
+                                    <input type="number" step="0.01" x-model="formData.costo_unitario" required class="mt-2 w-full bg-surface-container-lowest border border-outline-variant/30 text-on-surface p-3 font-body focus:border-primary focus:outline-none transition-colors font-bold text-primary"></div>
                                 </div>
-                                <div><label class="text-sm font-medium text-gray-700">Fecha Consumo</label><input type="date" x-model="formData.fecha_consumo" required class="w-full border-gray-300 rounded-md p-2 bg-gray-50 border mt-1"></div>
+                                <div><label class="text-[10px] font-label uppercase tracking-widest text-outline">Timestamp Consumo</label>
+                                <input type="date" x-model="formData.fecha_consumo" required class="mt-2 w-full bg-surface-container-lowest border border-outline-variant/30 text-on-surface p-3 font-body focus:border-primary focus:outline-none transition-colors [&::-webkit-calendar-picker-indicator]:invert-[0.6]"></div>
                             </div>
                         </template>
 
                         <!-- Form Finanzas (Gastos Operativos) -->
                         <template x-if="activeTab === 'gastos_operativos'">
-                            <div class="space-y-4">
-                                <div><label class="text-sm font-medium text-gray-700">ID Tractocamión</label><input type="number" x-model="formData.id_tractocamion" required class="mt-1 w-full border-gray-300 rounded-md p-2 bg-gray-50 border"></div>
-                                <div><label class="text-sm font-medium text-gray-700">ID Viaje (Opcional)</label><input type="number" x-model="formData.id_viaje" class="mt-1 w-full border-gray-300 rounded-md p-2 bg-gray-50 border"></div>
-                                <div class="grid grid-cols-2 gap-4">
-                                    <div><label class="text-sm font-medium text-gray-700">Tipo Gasto</label>
-                                        <select x-model="formData.tipo_gasto" class="w-full border-gray-300 rounded-md p-2 bg-gray-50 border mt-1">
-                                            <option value="diesel">Diésel</option><option value="casetas">Casetas</option>
-                                            <option value="viaticos">Viáticos</option><option value="reparacion">Reparación Taller</option>
-                                            <option value="otro">Otro</option>
+                            <div class="space-y-6">
+                                <div class="grid grid-cols-2 gap-6">
+                                    <div><label class="text-[10px] font-label uppercase tracking-widest text-outline">Centro Costos (Tracto)</label>
+                                    <input type="number" x-model="formData.id_tractocamion" required class="mt-2 w-full bg-surface-container-lowest border border-outline-variant/30 text-on-surface p-3 font-body focus:border-primary focus:outline-none transition-colors"></div>
+                                    <div><label class="text-[10px] font-label uppercase tracking-widest text-outline">Link ID Viaje (Opcional)</label>
+                                    <input type="number" x-model="formData.id_viaje" class="mt-2 w-full bg-surface-container-lowest border border-outline-variant/30 text-on-surface p-3 font-body focus:border-primary focus:outline-none transition-colors"></div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-6">
+                                    <div><label class="text-[10px] font-label uppercase tracking-widest text-outline">Categoría Taxonomía</label>
+                                        <select x-model="formData.tipo_gasto" class="mt-2 w-full bg-surface-container-lowest border border-outline-variant/30 text-on-surface p-3 font-body focus:border-primary focus:outline-none transition-colors">
+                                            <option value="diesel">Combustible (Diésel)</option><option value="casetas">Peajes (Casetas)</option>
+                                            <option value="viaticos">Dietas/Viáticos</option><option value="reparacion">Taller Externo</option>
+                                            <option value="otro">Misceláneo</option>
                                         </select>
                                     </div>
-                                    <div><label class="text-sm font-medium text-gray-700">Monto ($)</label><input type="number" step="0.01" x-model="formData.monto" required class="w-full border-gray-300 rounded-md p-2 bg-gray-50 border mt-1"></div>
+                                    <div><label class="text-[10px] font-label uppercase tracking-widest text-outline">Valor Imputado ($)</label>
+                                    <input type="number" step="0.01" x-model="formData.monto" required class="mt-2 w-full bg-surface-container-lowest border border-outline-variant/30 text-on-surface p-3 font-body focus:border-primary focus:outline-none transition-colors font-bold text-primary"></div>
                                 </div>
-                                <div><label class="text-sm font-medium text-gray-700">Fecha de Gasto</label><input type="date" x-model="formData.fecha" required class="w-full border-gray-300 rounded-md p-2 bg-gray-50 border mt-1"></div>
-                                <div><label class="text-sm font-medium text-gray-700">Nota Auditores (Opcional)</label><textarea x-model="formData.descripcion" class="w-full border-gray-300 rounded-md p-2 bg-gray-50 border mt-1" rows="2"></textarea></div>
+                                <div><label class="text-[10px] font-label uppercase tracking-widest text-outline">Registro Contable (Fecha)</label>
+                                <input type="date" x-model="formData.fecha" required class="mt-2 w-full bg-surface-container-lowest border border-outline-variant/30 text-on-surface p-3 font-body focus:border-primary focus:outline-none transition-colors [&::-webkit-calendar-picker-indicator]:invert-[0.6]"></div>
+                                <div><label class="text-[10px] font-label uppercase tracking-widest text-outline">Apunte de Auditor</label>
+                                <textarea x-model="formData.descripcion" class="mt-2 w-full bg-surface-container-lowest border border-outline-variant/30 text-on-surface p-3 font-body focus:border-primary focus:outline-none transition-colors" rows="2"></textarea></div>
                             </div>
                         </template>
 
                     </div>
-                    <div class="bg-gray-50 px-6 py-4 flex flex-row-reverse space-x-reverse space-x-3">
-                        <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 font-medium shadow-sm transition">Guardar</button>
-                        <button type="button" @click="showModal = false" class="bg-white text-gray-700 px-6 py-2 rounded-md hover:bg-gray-100 font-medium border border-gray-300 transition">Cancelar</button>
+                    <div class="bg-surface-container-high px-8 py-5 flex items-center justify-end gap-4 border-t border-outline-variant/20">
+                        <button type="button" @click="showModal = false" class="text-[10px] font-label uppercase font-bold tracking-widest text-outline hover:text-on-surface px-6 py-3 transition-colors">Abortar</button>
+                        <button type="submit" class="bg-primary hover:brightness-110 text-on-primary font-label text-[10px] uppercase font-bold tracking-widest px-8 py-3 transition-all cursor-pointer">Ejecutar Commit</button>
                     </div>
                 </form>
             </div>
@@ -356,11 +515,11 @@
                     let ep = (this.activeTab === 'cajas_remolques') ? 'cajas_remolques' : this.activeTab;
                     const response = await fetch('/api/' + ep, { headers: { 'Accept': 'application/json' }});
                     if (!response.ok) {
-                        if(response.status === 403) throw new Error("Acceso Restringido (RBAC).");
-                        throw new Error("Error obteniendo datos.");
+                        if(response.status === 403) throw new Error("Security Access Denied (RBAC).");
+                        throw new Error("Datastream fetch failed.");
                     }
                     this.data[this.activeTab] = await response.json();
-                } catch (e) { this.error = "Error al conectar con API ("+this.activeTab+"): " + e.message; }
+                } catch (e) { this.error = "API Link Error ("+this.activeTab+"): " + e.message; }
             },
 
             openModal() {
@@ -392,7 +551,7 @@
                         formPayload.append('evidencia', this.formData.evidencia); // Matching controller field name
                         const res = await fetch('/api/' + ep, { method: 'POST', body: formPayload });
                         if(res.ok) { this.showModal=false; this.fetchData(); return; }
-                        else { const e = await res.json(); alert("Error: " + JSON.stringify(e.messages)); return; }
+                        else { const e = await res.json(); alert("System Alert: " + JSON.stringify(e.messages)); return; }
                     }
 
                     if(this.activeTab === 'ordenes_trabajo') {
@@ -411,19 +570,19 @@
                         this.fetchData();
                     } else {
                         const data = await response.json();
-                        alert("Restricción del Motor Backend: " + JSON.stringify(data.messages));
+                        alert("Logic Engine Constraint: " + JSON.stringify(data.messages));
                     }
-                } catch (e) { alert("Error de conexión guardando en DB."); }
+                } catch (e) { alert("Core DB Persist Error."); }
             },
 
             async deleteRecord(id) {
-                if(!confirm("¿Borrar definitivamente registro #" + id + "?")) return;
+                if(!confirm("Warning: Confirm destructive action on item #" + id + "?")) return;
                 try {
                     let ep = (this.activeTab === 'cajas_remolques') ? 'cajas_remolques' : this.activeTab;
                     const res = await fetch('/api/' + ep + '/' + id, { method: 'DELETE' });
                     if(res.ok) this.fetchData();
-                    else alert("Error de persistencia o restricción Shield.");
-                } catch (e) { alert("Error de I/O"); }
+                    else alert("Shield Core rejection: Integrity dependency.");
+                } catch (e) { alert("I/O Network Error"); }
             }
         }));
     });

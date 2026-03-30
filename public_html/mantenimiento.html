@@ -1,148 +1,246 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mantenimiento - CFI Logístico</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Alpine.js -->
+    <!-- Tailwind CSS & CFI Design System -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&family=Manrope:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-fixed-dim": "#D1A14E",
+                        "surface-container-lowest": "#0e0e0f",
+                        "on-error": "#ffb4ab",
+                        "surface-variant": "#353436",
+                        "surface-container-high": "#2a2a2b",
+                        "inverse-surface": "#e5e2e3",
+                        "primary": "#D1A14E",
+                        "on-primary-container": "#9E7632",
+                        "primary-container": "#4b391a",
+                        "surface-container-low": "#1b1b1c",
+                        "surface": "#131314",
+                        "on-secondary-fixed-variant": "#434b18",
+                        "secondary-container": "#434b18",
+                        "surface-container-highest": "#353436",
+                        "on-surface": "#e5e2e3",
+                        "on-secondary-container": "#b1bb7c",
+                        "on-primary": "#2e2100",
+                        "on-secondary": "#2d3404",
+                        "primary-fixed": "#f8e3be",
+                        "error": "#93000a",
+                        "inverse-on-surface": "#303031",
+                        "background": "#131314",
+                        "on-error-container": "#ffdad6",
+                        "tertiary-container": "#3d2b1f",
+                        "on-primary-fixed": "#2e2100",
+                        "surface-tint": "#D1A14E",
+                        "on-tertiary-container": "#ac9181",
+                        "tertiary-fixed-dim": "#dec1af",
+                        "surface-dim": "#131314",
+                        "on-tertiary": "#3f2c20",
+                        "tertiary": "#dec1af",
+                        "secondary": "#D1A14E",
+                        "outline-variant": "#4f453f",
+                        "on-secondary-fixed": "#191e00",
+                        "tertiary-fixed": "#fbddca",
+                        "on-tertiary-fixed-variant": "#574335",
+                        "on-background": "#e5e2e3",
+                        "secondary-fixed-dim": "#D1A14E",
+                        "on-surface-variant": "#d2c4bc",
+                        "on-primary-fixed-variant": "#6d5200",
+                        "secondary-fixed": "#f8e3be",
+                        "surface-container": "#1f1f20",
+                        "error-container": "#ffb4ab",
+                        "surface-bright": "#39393a",
+                        "outline": "#9b8e87",
+                        "inverse-primary": "#906d00",
+                        "on-tertiary-fixed": "#28180d"
+                    },
+                    fontFamily: {
+                        "headline": ["Noto Serif", "serif"],
+                        "body": ["Manrope", "sans-serif"],
+                        "label": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0px", "sm": "0px", "md": "0px", "lg": "0px", "xl": "0px", "2xl": "0px", "3xl": "0px", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; }
+        .matte-grain { position: relative; }
+        .matte-grain::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            opacity: 0.03;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+        [x-cloak] { display: none !important; }
+    </style>
 </head>
-<body class="bg-gray-100 text-gray-800 font-sans antialiased">
-    <header class="bg-red-900 text-white shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <h1 class="text-xl font-bold flex items-center">
-                <svg class="w-6 h-6 mr-2 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+<body class="bg-surface text-on-surface font-body antialiased selection:bg-primary selection:text-on-primary min-h-screen relative">
+    <div class="absolute inset-0 bg-surface -z-10 matte-grain pointer-events-none"></div>
+
+    <header class="bg-surface-container-low border-b-2 border-primary shadow-xl sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-8 py-6 flex justify-between items-center relative matte-grain">
+            <h1 class="text-2xl font-headline font-bold text-primary flex items-center uppercase tracking-widest">
+                <span class="material-symbols-outlined text-[32px] mr-3">build</span>
                 Taller Mantenimiento
             </h1>
             <nav>
-                <a href="/logout" class="px-4 py-2 bg-red-800 hover:bg-red-700 rounded text-sm transition text-white inline-block">Cerrar Sesión</a>
+                <a href="/logout" class="block w-full text-center border border-error text-error hover:bg-error/10 px-6 py-2 font-label uppercase tracking-widest font-bold transition-colors text-[10px]">Cerrar Sesión</a>
             </nav>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 py-8" x-data="mantenimientoApp()">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+    <main class="max-w-7xl mx-auto px-8 py-12" x-data="mantenimientoApp()" x-cloak>
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
             <div>
-                <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight">Órdenes de Trabajo</h2>
-                <p class="text-gray-500 mt-1">Supervisión en tiempo real de unidades averiadas</p>
+                <span class="font-label text-xs uppercase tracking-[0.3em] text-primary block mb-2">Monitor Hardware</span>
+                <h2 class="text-4xl md:text-5xl font-headline font-bold text-on-surface tracking-tight">Órdenes de Trabajo</h2>
+                <p class="text-on-surface-variant font-body mt-2">Supervisión en tiempo real de unidades en reparación o mantenimiento preventivo.</p>
             </div>
-            <button @click="showModal = true" class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg shadow-md flex items-center font-semibold transition">
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+            <button @click="showModal = true" class="bg-primary hover:brightness-110 text-on-primary px-8 py-3 font-label text-[10px] uppercase tracking-widest font-bold flex items-center shadow-lg transition-all">
+                <span class="material-symbols-outlined text-[18px] mr-2">add</span>
                 Reporte Ágil (Checklist)
             </button>
         </div>
 
-        <div x-show="error" style="display: none;" class="bg-red-50 border-l-4 border-red-500 p-4 mb-6 rounded">
-            <p class="text-sm text-red-700" x-text="error"></p>
+        <div x-show="error" style="display: none;" class="bg-error/20 border-l-4 border-error p-4 mb-8 flex items-center text-error-container font-body text-sm font-medium">
+            <span class="material-symbols-outlined mr-3">error</span>
+            <span x-text="error"></span>
         </div>
 
-        <!-- Orders Table -->
-        <div class="bg-white shadow rounded-lg overflow-hidden">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
+        <!-- Orders Table (Technical Ledger Style) -->
+        <div class="bg-surface-container-low border border-outline-variant/20 shadow-2xl relative">
+            <div class="absolute inset-0 matte-grain pointer-events-none"></div>
+            
+            <table class="min-w-full divide-y divide-outline-variant/20 relative z-10">
+                <thead class="bg-surface-container-high">
                     <tr>
-                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Prioridad</th>
-                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">ID Unidad</th>
-                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Falla / Checklist</th>
-                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Estatus</th>
-                        <th class="px-6 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Acción</th>
+                        <th class="px-8 py-4 text-left font-label text-[10px] text-outline uppercase tracking-[0.15em]">Prioridad (SLA)</th>
+                        <th class="px-8 py-4 text-left font-label text-[10px] text-outline uppercase tracking-[0.15em]">Económico / Tracto</th>
+                        <th class="px-8 py-4 text-left font-label text-[10px] text-outline uppercase tracking-[0.15em]">Diagnóstico</th>
+                        <th class="px-8 py-4 text-left font-label text-[10px] text-outline uppercase tracking-[0.15em]">Estado Nodo</th>
+                        <th class="px-8 py-4 text-right font-label text-[10px] text-outline uppercase tracking-[0.15em]">Acción</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-200">
+                <tbody class="divide-y divide-outline-variant/10 bg-surface-container-low">
                     <template x-for="orden in ordenes" :key="orden.id">
-                        <tr :class="orden.prioridad === 'alta' ? 'bg-red-50' : (orden.prioridad === 'media' ? 'bg-orange-50' : 'bg-white')">
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="px-2 inline-flex text-xs leading-5 font-bold rounded-full uppercase"
+                        <tr :class="orden.prioridad === 'alta' ? 'bg-error/10 border-l-4 border-error' : (orden.prioridad === 'media' ? 'bg-primary/5 border-l-4 border-primary/50' : 'hover:bg-surface-container-highest transition-colors group')">
+                            <td class="px-8 py-4 whitespace-nowrap">
+                                <span class="px-3 py-1 inline-flex text-[10px] font-label font-bold uppercase tracking-widest border"
                                     :class="{
-                                        'bg-red-200 text-red-900': orden.prioridad === 'alta',
-                                        'bg-orange-200 text-orange-900': orden.prioridad === 'media',
-                                        'bg-green-100 text-green-800': orden.prioridad === 'baja'
+                                        'bg-error/20 text-error-container border-error/30': orden.prioridad === 'alta',
+                                        'bg-primary/10 text-primary border-primary/20': orden.prioridad === 'media',
+                                        'bg-surface-container-highest text-outline border-outline-variant/30': orden.prioridad === 'baja'
                                     }" x-text="orden.prioridad"></span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-bold">
-                                Trc# <span x-text="orden.id_tractocamion"></span>
+                            <td class="px-8 py-4 whitespace-nowrap text-sm text-on-surface font-body font-bold">
+                                TRC# <span x-text="orden.id_tractocamion"></span>
                             </td>
-                            <td class="px-6 py-4 text-sm text-gray-700">
-                                <p class="font-medium" x-text="orden.descripcion_falla || 'Reporte de Áreas'"></p>
-                                <div class="mt-1 flex space-x-2" x-show="orden.checklist_fallas">
+                            <td class="px-8 py-4 text-sm text-on-surface-variant font-body">
+                                <p class="font-bold opacity-80" x-text="orden.descripcion_falla || 'Revision Preventiva'"></p>
+                                <div class="mt-2 flex space-x-2" x-show="orden.checklist_fallas">
                                     <template x-for="(val, key) in JSON.parse(orden.checklist_fallas)" :key="key">
-                                        <span x-show="val" class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800 capitalize" x-text="key"></span>
+                                        <span x-show="val" class="inline-flex items-center px-2 py-0.5 text-[10px] uppercase font-label tracking-widest bg-error/10 border border-error/50 text-error-container" x-text="key"></span>
                                     </template>
                                 </div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-medium capitalize" x-text="orden.status"></td>
-                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <button class="text-red-600 hover:text-red-900">Atender</button>
+                            <td class="px-8 py-4 whitespace-nowrap">
+                                <span class="px-3 py-1 font-label text-[10px] uppercase tracking-widest text-outline border border-outline-variant/30 bg-surface-container-highest" x-text="orden.status"></span>
+                            </td>
+                            <td class="px-8 py-4 whitespace-nowrap text-right">
+                                <button class="text-[10px] font-label text-primary hover:text-white uppercase font-bold tracking-widest transition-colors">Ejecutar Mantenimiento</button>
                             </td>
                         </tr>
                     </template>
                     <tr x-show="ordenes.length === 0">
-                        <td colspan="5" class="px-6 py-8 text-center text-sm text-gray-500">No hay órdenes de trabajo abiertas en este momento.</td>
+                        <td colspan="5" class="px-8 py-16 text-center text-sm font-body text-outline opacity-60">
+                            <span class="material-symbols-outlined text-5xl mb-4 block opacity-50">verified_user</span>
+                            No se detectan incidentes en el hardware de la flota. Status Operacional: Óptimo.
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
         <!-- Modal Reporte Ágil -->
-        <div x-show="showModal" style="display: none;" class="fixed inset-0 z-10 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-            <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-                <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" @click="showModal = false"></div>
-                <!-- This element is to trick the browser into centering the modal contents. -->
-                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-                <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                    <form @submit.prevent="submitReporte">
-                        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                            <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4" id="modal-title">Nuevo Reporte de Falla</h3>
+        <div x-show="showModal" style="display: none;" class="fixed inset-0 z-[100] overflow-y-auto">
+            <div class="flex items-center justify-center min-h-screen p-4 text-center sm:block sm:p-0">
+                <div class="fixed inset-0 bg-[#0e0e0f]/90 transition-opacity" @click="showModal = false"></div>
+                
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen">&#8203;</span>
+                <div class="inline-block align-bottom bg-surface-container-low border border-outline-variant/30 text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-xl sm:w-full relative matte-grain">
+                    <form @submit.prevent="submitReporte" class="relative z-10">
+                        <div class="bg-surface-container-high px-8 py-6 border-b border-outline-variant/20 flex justify-between items-center">
+                            <div>
+                                <span class="font-label text-[10px] uppercase tracking-widest text-primary mb-1 block">Hardware Link</span>
+                                <h3 class="text-2xl font-headline font-bold text-on-surface">Ingreso Taller</h3>
+                            </div>
+                            <button type="button" @click="showModal = false" class="text-outline hover:text-on-surface transition-colors">
+                                <span class="material-symbols-outlined">close</span>
+                            </button>
+                        </div>
+                        
+                        <div class="px-8 py-8 md:py-10 space-y-6">
                             
-                            <div class="mb-4">
-                                <label class="block text-sm font-medium text-gray-700 mb-1">ID Tractocamión</label>
-                                <input type="number" x-model="form.id_tractocamion" required class="w-full border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 p-2 border">
+                            <div>
+                                <label class="text-[10px] font-label uppercase tracking-widest text-outline mb-2 block">ID Tractocamión</label>
+                                <input type="number" x-model="form.id_tractocamion" required class="w-full bg-surface-container-lowest border border-outline-variant/30 text-on-surface p-3 font-body focus:border-primary focus:outline-none transition-colors">
                             </div>
 
-                            <div class="mb-4">
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Checklist Rápido</label>
-                                <div class="grid grid-cols-2 gap-2">
-                                    <label class="flex items-center space-x-2 text-sm">
-                                        <input type="checkbox" x-model="form.checklist_fallas.motor" class="rounded text-red-600 focus:ring-red-500">
-                                        <span>Motor</span>
+                            <div>
+                                <label class="text-[10px] font-label uppercase tracking-widest text-outline mb-2 block">Diagnóstico de Superficie</label>
+                                <div class="grid grid-cols-2 gap-4 bg-surface p-4 border border-outline-variant/20">
+                                    <label class="flex items-center gap-3 cursor-pointer">
+                                        <input type="checkbox" x-model="form.checklist_fallas.motor" class="form-checkbox text-primary focus:ring-primary focus:ring-offset-surface bg-surface-container-highest border-outline-variant">
+                                        <span class="text-sm font-body text-on-surface">Falla Motor</span>
                                     </label>
-                                    <label class="flex items-center space-x-2 text-sm">
-                                        <input type="checkbox" x-model="form.checklist_fallas.llantas" class="rounded text-red-600 focus:ring-red-500">
-                                        <span>Llantas</span>
+                                    <label class="flex items-center gap-3 cursor-pointer">
+                                        <input type="checkbox" x-model="form.checklist_fallas.llantas" class="form-checkbox text-primary focus:ring-primary focus:ring-offset-surface bg-surface-container-highest border-outline-variant">
+                                        <span class="text-sm font-body text-on-surface">Neumáticos</span>
                                     </label>
-                                    <label class="flex items-center space-x-2 text-sm">
-                                        <input type="checkbox" x-model="form.checklist_fallas.frenos" class="rounded text-red-600 focus:ring-red-500">
-                                        <span>Frenos</span>
+                                    <label class="flex items-center gap-3 cursor-pointer">
+                                        <input type="checkbox" x-model="form.checklist_fallas.frenos" class="form-checkbox text-primary focus:ring-primary focus:ring-offset-surface bg-surface-container-highest border-outline-variant">
+                                        <span class="text-sm font-body text-on-surface">Frenos / Compresor</span>
                                     </label>
-                                    <label class="flex items-center space-x-2 text-sm">
-                                        <input type="checkbox" x-model="form.checklist_fallas.luces" class="rounded text-red-600 focus:ring-red-500">
-                                        <span>Luces</span>
+                                    <label class="flex items-center gap-3 cursor-pointer">
+                                        <input type="checkbox" x-model="form.checklist_fallas.luces" class="form-checkbox text-primary focus:ring-primary focus:ring-offset-surface bg-surface-container-highest border-outline-variant">
+                                        <span class="text-sm font-body text-on-surface">Sistema Eléctrico</span>
                                     </label>
                                 </div>
                             </div>
 
-                            <div class="mb-4">
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Notas / Observaciones</label>
-                                <textarea x-model="form.descripcion_falla" class="w-full border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 p-2 border" rows="2"></textarea>
+                            <div>
+                                <label class="text-[10px] font-label uppercase tracking-widest text-outline mb-2 block">Log Textual / Observaciones</label>
+                                <textarea x-model="form.descripcion_falla" class="w-full bg-surface-container-lowest border border-outline-variant/30 text-on-surface p-3 font-body focus:border-primary focus:outline-none transition-colors" rows="2" placeholder="Observaciones adicionales, ruidos inusuales..."></textarea>
                             </div>
 
-                            <div class="mb-2">
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Prioridad</label>
-                                <select x-model="form.prioridad" class="w-full border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 p-2 border text-red-700 font-bold">
-                                    <option value="baja">Baja - Preventiva</option>
-                                    <option value="media">Media - Revisión Pronta</option>
-                                    <option value="alta">Alta - Inmovilizado</option>
+                            <div>
+                                <label class="text-[10px] font-label uppercase tracking-widest text-outline mb-2 block">Gravedad del Fallo</label>
+                                <select x-model="form.prioridad" class="w-full bg-surface-container-lowest border border-l-4 border-error text-error font-bold p-3 font-body focus:outline-none transition-colors">
+                                    <option value="baja" class="text-outline font-normal">Nivel 3 (Cosmético / Leve)</option>
+                                    <option value="media" class="text-primary font-bold">Nivel 2 (Preventivo Específico)</option>
+                                    <option value="alta" class="text-error font-bold">Nivel 1 (Crítico / No Opera)</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                            <button type="submit" :disabled="submitting" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm disabled:opacity-50">
-                                Enviar Reporte
+                        <div class="bg-surface-container-high px-8 py-5 flex flex-row-reverse justify-start gap-4 border-t border-outline-variant/20">
+                            <button type="submit" :disabled="submitting" class="bg-primary hover:brightness-110 text-on-primary font-label text-[10px] uppercase font-bold tracking-widest px-8 py-3 transition-all cursor-pointer disabled:opacity-50">
+                                Archivar Reporte
                             </button>
-                            <button type="button" @click="showModal = false" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
-                                Cancelar
+                            <button type="button" @click="showModal = false" class="text-[10px] font-label uppercase font-bold tracking-widest text-outline hover:text-on-surface px-6 py-3 transition-colors">
+                                Abortar
                             </button>
                         </div>
                     </form>
@@ -184,7 +282,7 @@
                              this.ordenes = await response.json();
                         }
                     } catch (e) {
-                        this.error = "Error al obtener las órdenes.";
+                        this.error = "Conexión a base de datos de mantenimiento interrumpida.";
                     }
                 },
 
@@ -214,10 +312,10 @@
                             Object.keys(this.form.checklist_fallas).forEach(k => this.form.checklist_fallas[k] = false);
                         } else {
                             const data = await response.json();
-                            alert("Error en captura: " + JSON.stringify(data.messages));
+                            alert("Protocolo Rechazado: " + JSON.stringify(data.messages));
                         }
                     } catch (e) {
-                        alert("Error de conexión");
+                        alert("Falla del API Link.");
                     }
                     this.submitting = false;
                 }

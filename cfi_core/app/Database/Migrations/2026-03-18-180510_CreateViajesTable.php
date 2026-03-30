@@ -25,7 +25,7 @@ class CreateViajesTable extends Migration
         $this->forge->addForeignKey('id_chofer', 'choferes', 'id', 'CASCADE', 'CASCADE');
         $this->forge->addForeignKey('id_tractocamion', 'tractocamiones', 'id', 'CASCADE', 'CASCADE');
         $this->forge->addForeignKey('id_caja_remolque', 'cajas_remolques', 'id', 'SET NULL', 'CASCADE');
-        $this->forge->addForeignKey('id_cliente', 'usuarios', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('id_cliente', 'users', 'id', 'CASCADE', 'CASCADE');
         $this->forge->createTable('viajes');
     }
 

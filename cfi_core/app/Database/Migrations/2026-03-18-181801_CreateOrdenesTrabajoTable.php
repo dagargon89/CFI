@@ -26,7 +26,7 @@ class CreateOrdenesTrabajoTable extends Migration
         $this->forge->addKey('id', true);
         $this->forge->addForeignKey('id_tractocamion', 'tractocamiones', 'id', 'SET NULL', 'CASCADE');
         $this->forge->addForeignKey('id_caja_remolque', 'cajas_remolques', 'id', 'SET NULL', 'CASCADE');
-        $this->forge->addForeignKey('id_usuario_reporta', 'usuarios', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('id_usuario_reporta', 'users', 'id', 'CASCADE', 'CASCADE');
         $this->forge->createTable('ordenes_trabajo');
     }
 

@@ -22,7 +22,7 @@ class CreateEvidenciasViajeTable extends Migration
         ]);
         $this->forge->addKey('id', true);
         $this->forge->addForeignKey('id_viaje', 'viajes', 'id', 'CASCADE', 'CASCADE');
-        $this->forge->addForeignKey('uploaded_by', 'usuarios', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('uploaded_by', 'users', 'id', 'CASCADE', 'CASCADE');
         $this->forge->createTable('evidencias_viaje');
     }
 

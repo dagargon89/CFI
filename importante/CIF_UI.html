@@ -1,0 +1,1486 @@
+<!-- Design System -->
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>CFI Transporte - Data Health Audit</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&amp;family=Manrope:wght@400;500;600&amp;family=Inter:wght@400;500&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-fixed-dim": "#D1A14E",
+                        "surface-container-lowest": "#0e0e0f",
+                        "on-error": "#690005",
+                        "surface-variant": "#353436",
+                        "surface-container-high": "#2a2a2b",
+                        "inverse-surface": "#e5e2e3",
+                        "primary": "#D1A14E",
+                        "on-primary-container": "#9E7632",
+                        "primary-container": "#4b391a",
+                        "surface-container-low": "#1b1b1c",
+                        "surface": "#131314",
+                        "on-secondary-fixed-variant": "#434b18",
+                        "secondary-container": "#434b18",
+                        "surface-container-highest": "#353436",
+                        "on-surface": "#e5e2e3",
+                        "on-secondary-container": "#b1bb7c",
+                        "on-primary": "#2e2100",
+                        "on-secondary": "#2d3404",
+                        "primary-fixed": "#f8e3be",
+                        "error": "#ffb4ab",
+                        "inverse-on-surface": "#303031",
+                        "background": "#131314",
+                        "on-error-container": "#ffdad6",
+                        "tertiary-container": "#3d2b1f",
+                        "on-primary-fixed": "#2e2100",
+                        "surface-tint": "#D1A14E",
+                        "on-tertiary-container": "#ac9181",
+                        "tertiary-fixed-dim": "#dec1af",
+                        "surface-dim": "#131314",
+                        "on-tertiary": "#3f2c20",
+                        "tertiary": "#dec1af",
+                        "secondary": "#D1A14E",
+                        "outline-variant": "#4f453f",
+                        "on-secondary-fixed": "#191e00",
+                        "tertiary-fixed": "#fbddca",
+                        "on-tertiary-fixed-variant": "#574335",
+                        "on-background": "#e5e2e3",
+                        "secondary-fixed-dim": "#D1A14E",
+                        "on-surface-variant": "#d2c4bc",
+                        "on-primary-fixed-variant": "#6d5200",
+                        "secondary-fixed": "#f8e3be",
+                        "surface-container": "#1f1f20",
+                        "error-container": "#93000a",
+                        "surface-bright": "#39393a",
+                        "outline": "#9b8e87",
+                        "inverse-primary": "#906d00",
+                        "on-tertiary-fixed": "#28180d"
+                    },
+                    fontFamily: {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24
+        }
+
+        .matte-texture {
+            background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuA7epbS1NUuc27GIoD3i3zR4OQfywIvAnW8kRyusIXwQMROMwfPu74ZebFnvLCsSUpBsBp7X1pMODNB-nI4a7A3vk7TY1sK6H9bd3wCkQSO1C-PO9iGjw9tPN1sfh2jaBHTEqghV3lVrolr_rtI3Uu7EWtKjU4PWpJFJUJ05a8ygA9Wy1sjp4vPip6EssYxfuvntAVUuAiI09jnvbdVPEwQ8NGvZR4sJVfY9_FBMOjD-WB8NXaY5N89JOy4IxbzW6DzsWH71sicrNZi);
+            opacity: 0.03;
+            pointer-events: none
+        }
+
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary">
+    <!-- TopAppBar -->
+    <header class="bg-[#131314] dark:bg-[#131314] flex justify-between items-center w-full px-8 py-6 sticky top-0 z-50">
+        <div class="flex items-center gap-4">
+            <span class="material-symbols-outlined text-[#D1A14E]" style="font-size: 32px;">architecture</span>
+            <h1 class="text-2xl font-serif text-[#D1A14E] uppercase tracking-widest leading-none">CFI Transporte</h1>
+        </div>
+        <div class="flex items-center gap-6">
+            <div class="hidden md:flex gap-8">
+                <span
+                    class="text-[#4F453F] font-label text-sm uppercase tracking-widest hover:text-[#D1A14E] transition-colors cursor-pointer">Network</span>
+                <span class="text-[#D1A14E] font-label text-sm uppercase tracking-widest cursor-pointer">Audit</span>
+                <span
+                    class="text-[#4F453F] font-label text-sm uppercase tracking-widest hover:text-[#D1A14E] transition-colors cursor-pointer">Security</span>
+            </div>
+            <div
+                class="w-10 h-10 bg-surface-container-high border border-outline-variant/20 flex items-center justify-center overflow-hidden">
+                <img class="w-full h-full object-cover grayscale"
+                    data-alt="Professional headshot of an executive in a dark suit against a minimalist architectural background"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXBnwMS9WSBhNxgiTNToyViniuMHDY8nQjeQq7AKpa8RHru2Sb8QdYyBBnVvUV680HRZP4P-hbL99u60ljlYEJF89xctwAkDF87QNVqui0MOm3jMkSNzUEl9Kd9JNRna5hHpLPy6QdAkqFy5ZhVDnfvPErDDvHdzp1R86SuQlOB-XC7VPIPIu_zfEODQ6Su6pRoek1Zv6RsIPEvFTAI_awNzAb_FJEM_a1atuh_lG6yV_NJiUzQvex0EPtnlgUBAX7Fw-pT0p3eQAe3l" />
+            </div>
+        </div>
+    </header>
+    <main class="max-w-7xl mx-auto px-8 py-12 pb-32">
+        <!-- Sanity Meter Section -->
+        <section class="mb-16">
+            <div class="flex flex-col md:flex-row gap-12 items-end">
+                <div class="w-full md:w-1/2">
+                    <span class="font-label text-primary text-xs uppercase tracking-[0.3em] mb-4 block">Executive
+                        Overview</span>
+                    <h2 class="font-headline text-5xl font-bold tracking-tight mb-8">Data Sanity Index</h2>
+                    <div
+                        class="relative h-64 w-full bg-surface-container-low flex items-end px-8 py-10 overflow-hidden">
+                        <div class="absolute inset-0 matte-texture"></div>
+                        <!-- Gauge visualization -->
+                        <div class="w-full flex items-end justify-between gap-2 h-full">
+                            <div class="w-full bg-primary/20 h-[40%]"></div>
+                            <div class="w-full bg-primary/40 h-[55%]"></div>
+                            <div class="w-full bg-primary/60 h-[70%]"></div>
+                            <div class="w-full bg-primary/80 h-[85%]"></div>
+                            <div class="w-full bg-primary h-[98%] relative">
+                                <div
+                                    class="absolute -top-12 left-1/2 -translate-x-1/2 font-headline text-3xl text-primary">
+                                    98.2%</div>
+                            </div>
+                            <div class="w-full bg-outline-variant h-[20%] opacity-20"></div>
+                            <div class="w-full bg-outline-variant h-[15%] opacity-10"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 pb-2">
+                    <p class="font-headline text-xl text-on-surface-variant leading-relaxed max-w-md">
+                        The integrity of the transport ledger is currently <span class="text-primary">Optimal</span>.
+                        Minor latencies detected in cross-border logistical syncs, representing &lt;0.02% variance.
+                    </p>
+                    <button
+                        class="mt-8 bg-primary text-on-primary px-10 py-4 font-label text-xs uppercase tracking-widest hover:bg-on-primary-container transition-colors">
+                        Generate Full Report
+                    </button>
+                </div>
+            </div>
+        </section>
+        <!-- Bento Grid: Data Quality Breakdown -->
+        <section class="grid grid-cols-1 md:grid-cols-4 gap-px bg-outline-variant/20 mb-16">
+            <!-- Accuracy -->
+            <div class="bg-surface-container-low p-8 relative overflow-hidden group">
+                <div class="absolute top-0 left-0 w-1 h-full bg-primary"></div>
+                <div class="flex justify-between items-start mb-12">
+                    <span class="material-symbols-outlined text-primary">verified</span>
+                    <span class="font-label text-xs text-outline tracking-tighter">METRIC: 01</span>
+                </div>
+                <h3 class="font-headline text-lg mb-2">Accuracy</h3>
+                <div class="text-4xl font-body font-light mb-4">99.9<span class="text-sm text-outline">%</span></div>
+                <p class="font-label text-xs text-on-surface-variant uppercase tracking-wider leading-relaxed">
+                    Verification against hardware GPS beacons and physical manifests.</p>
+            </div>
+            <!-- Completeness -->
+            <div class="bg-surface-container-low p-8 relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-1 h-full bg-outline-variant opacity-30"></div>
+                <div class="flex justify-between items-start mb-12">
+                    <span class="material-symbols-outlined text-outline">full_stacked_bar_chart</span>
+                    <span class="font-label text-xs text-outline tracking-tighter">METRIC: 02</span>
+                </div>
+                <h3 class="font-headline text-lg mb-2">Completeness</h3>
+                <div class="text-4xl font-body font-light mb-4">94.2<span class="text-sm text-outline">%</span></div>
+                <p class="font-label text-xs text-on-surface-variant uppercase tracking-wider leading-relaxed">Dataset
+                    population density across all regional sub-nodes.</p>
+            </div>
+            <!-- Consistency -->
+            <div class="bg-surface-container-low p-8 relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-1 h-full bg-primary"></div>
+                <div class="flex justify-between items-start mb-12">
+                    <span class="material-symbols-outlined text-primary">sync_alt</span>
+                    <span class="font-label text-xs text-outline tracking-tighter">METRIC: 03</span>
+                </div>
+                <h3 class="font-headline text-lg mb-2">Consistency</h3>
+                <div class="text-4xl font-body font-light mb-4">98.8<span class="text-sm text-outline">%</span></div>
+                <p class="font-label text-xs text-on-surface-variant uppercase tracking-wider leading-relaxed">
+                    Cross-database structural alignment and schema adherence.</p>
+            </div>
+            <!-- Timeliness -->
+            <div class="bg-surface-container-low p-8 relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-1 h-full bg-outline-variant opacity-30"></div>
+                <div class="flex justify-between items-start mb-12">
+                    <span class="material-symbols-outlined text-outline">schedule</span>
+                    <span class="font-label text-xs text-outline tracking-tighter">METRIC: 04</span>
+                </div>
+                <h3 class="font-headline text-lg mb-2">Timeliness</h3>
+                <div class="text-4xl font-body font-light mb-4">88.5<span class="text-sm text-outline">%</span></div>
+                <p class="font-label text-xs text-on-surface-variant uppercase tracking-wider leading-relaxed">Real-time
+                    latency metrics for edge-computing data injections.</p>
+            </div>
+        </section>
+        <!-- Current Data Audits -->
+        <section class="bg-surface-container-low p-10">
+            <div class="flex justify-between items-center mb-10">
+                <h2 class="font-headline text-2xl">Active Audit Streams</h2>
+                <div class="flex gap-4">
+                    <button
+                        class="p-2 border border-outline-variant/30 hover:bg-surface-container-high transition-colors">
+                        <span class="material-symbols-outlined text-sm">filter_list</span>
+                    </button>
+                    <button
+                        class="p-2 border border-outline-variant/30 hover:bg-surface-container-high transition-colors">
+                        <span class="material-symbols-outlined text-sm">download</span>
+                    </button>
+                </div>
+            </div>
+            <div class="space-y-1">
+                <!-- Audit Row 1 -->
+                <div
+                    class="flex items-center justify-between p-6 bg-surface hover:bg-surface-container-high transition-colors group">
+                    <div class="flex items-center gap-8">
+                        <div class="w-12 h-12 bg-primary/10 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-primary">monitoring</span>
+                        </div>
+                        <div>
+                            <div class="font-body font-medium text-sm mb-1">Fleet Telemetry Validation</div>
+                            <div class="font-label text-xs text-outline uppercase tracking-widest">Global • Real-time
+                                Stream</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-12">
+                        <div class="hidden md:block text-right">
+                            <div class="font-label text-xs text-outline uppercase mb-1">Health</div>
+                            <div class="w-24 h-1 bg-surface-container-highest">
+                                <div class="bg-primary h-full w-[92%]"></div>
+                            </div>
+                        </div>
+                        <div class="text-right min-w-[120px]">
+                            <span
+                                class="inline-flex items-center px-3 py-1 bg-primary/20 text-primary font-label text-[10px] uppercase tracking-tighter">Active</span>
+                        </div>
+                        <span
+                            class="material-symbols-outlined text-outline group-hover:text-primary transition-colors cursor-pointer">chevron_right</span>
+                    </div>
+                </div>
+                <!-- Audit Row 2 -->
+                <div
+                    class="flex items-center justify-between p-6 bg-surface hover:bg-surface-container-high transition-colors group">
+                    <div class="flex items-center gap-8">
+                        <div class="w-12 h-12 bg-surface-container-highest/20 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-outline">account_balance_wallet</span>
+                        </div>
+                        <div>
+                            <div class="font-body font-medium text-sm mb-1">Financial Ledger Recon</div>
+                            <div class="font-label text-xs text-outline uppercase tracking-widest">Regional • Daily
+                                Batch</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-12">
+                        <div class="hidden md:block text-right">
+                            <div class="font-label text-xs text-outline uppercase mb-1">Health</div>
+                            <div class="w-24 h-1 bg-surface-container-highest">
+                                <div class="bg-primary/50 h-full w-[78%]"></div>
+                            </div>
+                        </div>
+                        <div class="text-right min-w-[120px]">
+                            <span
+                                class="inline-flex items-center px-3 py-1 bg-surface-container-highest text-outline font-label text-[10px] uppercase tracking-tighter">Scheduled</span>
+                        </div>
+                        <span
+                            class="material-symbols-outlined text-outline group-hover:text-primary transition-colors cursor-pointer">chevron_right</span>
+                    </div>
+                </div>
+                <!-- Audit Row 3 -->
+                <div
+                    class="flex items-center justify-between p-6 bg-surface hover:bg-surface-container-high transition-colors group">
+                    <div class="flex items-center gap-8">
+                        <div class="w-12 h-12 bg-primary/10 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-primary">security</span>
+                        </div>
+                        <div>
+                            <div class="font-body font-medium text-sm mb-1">GDPR Compliance Hash</div>
+                            <div class="font-label text-xs text-outline uppercase tracking-widest">System • Immutable
+                                Check</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-12">
+                        <div class="hidden md:block text-right">
+                            <div class="font-label text-xs text-outline uppercase mb-1">Health</div>
+                            <div class="w-24 h-1 bg-surface-container-highest">
+                                <div class="bg-primary h-full w-[100%]"></div>
+                            </div>
+                        </div>
+                        <div class="text-right min-w-[120px]">
+                            <span
+                                class="inline-flex items-center px-3 py-1 bg-primary/20 text-primary font-label text-[10px] uppercase tracking-tighter">Active</span>
+                        </div>
+                        <span
+                            class="material-symbols-outlined text-outline group-hover:text-primary transition-colors cursor-pointer">chevron_right</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- BottomNavBar -->
+    <nav
+        class="fixed bottom-0 left-0 w-full flex justify-around items-center px-12 pb-safe bg-[#1B1B1C] h-20 shadow-[0_-10px_30px_rgba(0,0,0,0.5)] z-50">
+        <!-- Dashboard -->
+        <div
+            class="flex flex-col items-center justify-center text-[#4F453F] opacity-60 pt-2 hover:text-[#D1A14E] hover:opacity-100 transition-all cursor-pointer">
+            <span class="material-symbols-outlined">dashboard</span>
+            <span class="text-xs font-semibold uppercase tracking-wider mt-1">Dashboard</span>
+        </div>
+        <!-- Data Integrity (Active) -->
+        <div
+            class="flex flex-col items-center justify-center text-[#D1A14E] border-t-2 border-[#D1A14E] pt-2 transition-transform duration-150 ease-in-out cursor-pointer">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">security</span>
+            <span class="text-xs font-semibold uppercase tracking-wider mt-1">Data Integrity</span>
+        </div>
+        <!-- Business Rules -->
+        <div
+            class="flex flex-col items-center justify-center text-[#4F453F] opacity-60 pt-2 hover:text-[#D1A14E] hover:opacity-100 transition-all cursor-pointer">
+            <span class="material-symbols-outlined">rule_folder</span>
+            <span class="text-xs font-semibold uppercase tracking-wider mt-1">Business Rules</span>
+        </div>
+        <!-- Admin -->
+        <div
+            class="flex flex-col items-center justify-center text-[#4F453F] opacity-60 pt-2 hover:text-[#D1A14E] hover:opacity-100 transition-all cursor-pointer">
+            <span class="material-symbols-outlined">admin_panel_settings</span>
+            <span class="text-xs font-semibold uppercase tracking-wider mt-1">Admin</span>
+        </div>
+    </nav>
+</body>
+
+</html>
+
+<!-- Data Health Audit (Gold Update) -->
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>CFI Transporte | Executive Dashboard</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&amp;family=Manrope:wght@400;500;600;700&amp;family=Inter:wght@400;500&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-fixed-dim": "#D1A14E",
+                        "surface-container-lowest": "#0e0e0f",
+                        "on-error": "#690005",
+                        "surface-variant": "#353436",
+                        "surface-container-high": "#2a2a2b",
+                        "inverse-surface": "#e5e2e3",
+                        "primary": "#D1A14E",
+                        "on-primary-container": "#A67B2E",
+                        "primary-container": "#3D2B1F",
+                        "surface-container-low": "#1b1b1c",
+                        "surface": "#131314",
+                        "on-secondary-fixed-variant": "#434b18",
+                        "secondary-container": "#434b18",
+                        "surface-container-highest": "#353436",
+                        "on-surface": "#e5e2e3",
+                        "on-secondary-container": "#b1bb7c",
+                        "on-primary": "#131314",
+                        "on-secondary": "#2d3404",
+                        "primary-fixed": "#F5E6CC",
+                        "error": "#ffb4ab",
+                        "inverse-on-surface": "#303031",
+                        "background": "#131314",
+                        "on-error-container": "#ffdad6",
+                        "tertiary-container": "#3d2b1f",
+                        "on-primary-fixed": "#2e1500",
+                        "surface-tint": "#D1A14E",
+                        "on-tertiary-container": "#ac9181",
+                        "tertiary-fixed-dim": "#dec1af",
+                        "surface-dim": "#131314",
+                        "on-tertiary": "#3f2c20",
+                        "tertiary": "#dec1af",
+                        "secondary": "#c3cc8c",
+                        "outline-variant": "#4f453f",
+                        "on-secondary-fixed": "#191e00",
+                        "tertiary-fixed": "#fbddca",
+                        "on-tertiary-fixed-variant": "#574335",
+                        "on-background": "#e5e2e3",
+                        "secondary-fixed-dim": "#c3cc8c",
+                        "on-surface-variant": "#d2c4bc",
+                        "on-primary-fixed-variant": "#6d3900",
+                        "secondary-fixed": "#dfe8a6",
+                        "surface-container": "#1f1f20",
+                        "error-container": "#93000a",
+                        "surface-bright": "#39393a",
+                        "outline": "#9b8e87",
+                        "inverse-primary": "#904d00",
+                        "on-tertiary-fixed": "#28180d"
+                    },
+                    fontFamily: {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24
+        }
+
+        .walnut-texture {
+            background-color: #3d2b1f;
+            background-image: repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(0, 0, 0, 0.05) 40px, rgba(0, 0, 0, 0.05) 41px)
+        }
+
+        .matte-grain {
+            position: relative
+        }
+
+        .matte-grain::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            opacity: 0.03;
+            pointer-events: none;
+            background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuCxtzo5Fd4tGwvT_jg4ysGETAyo_0QJXqFxE0Vz2jCSFfdCW_xcsx8ttX4CZRiXAQ5e-8ClJGovIme_H86utYa8siODIK5ToDWQRd0J97DLwVKIRNDWTJFuuP9hcZHxl3TW0UHrsINdFeEP-GfWzg6ZsUAe9dbaTn0kGfYEn6L_suxq7ifFL2e4HJJxC6M6yMa4wOfyyyiBZMm_ILej9DcNsEEVsRhY2idiHrWisdeOIG82K0lswo1JUKVmQYcwAiapSH8q-Y8FZ4J8)
+        }
+
+        .custom-gauge {
+            background: conic-gradient(from 180deg at 50% 100%, #D1A14E 0deg, #D1A14E 144deg, #2a2a2b 144deg, #2a2a2b 360deg);
+            mask: radial-gradient(circle at 50% 100%, transparent 60%, black 61%)
+        }
+
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary">
+    <!-- Top Navigation Shell -->
+    <header
+        class="bg-[#131314] flex justify-between items-center w-full px-8 py-6 sticky top-0 z-[100] border-b-0 shadow-none">
+        <div class="flex items-center gap-4">
+            <span class="material-symbols-outlined text-[#D1A14E] text-3xl" data-icon="architecture">architecture</span>
+            <div class="flex flex-col">
+                <h1 class="text-2xl font-serif text-[#D1A14E] uppercase tracking-widest leading-none">CFI Transporte
+                </h1>
+                <span class="text-[10px] font-label uppercase tracking-[0.2em] text-outline opacity-70">Data Engineering
+                    Engine</span>
+            </div>
+        </div>
+        <div class="flex items-center gap-6">
+            <div class="hidden md:flex gap-8 items-center">
+                <nav class="flex gap-6 font-label text-xs uppercase tracking-widest">
+                    <a class="text-[#D1A14E] hover:text-[#D1A14E] transition-colors" href="#">Dashboard</a>
+                    <a class="text-[#4F453F] hover:text-[#D1A14E] transition-colors" href="#">Infrastructure</a>
+                    <a class="text-[#4F453F] hover:text-[#D1A14E] transition-colors" href="#">Security</a>
+                </nav>
+            </div>
+            <div
+                class="w-10 h-10 bg-surface-container-highest border border-outline-variant/20 flex items-center justify-center">
+                <span class="material-symbols-outlined text-primary text-sm" data-icon="person">person</span>
+            </div>
+        </div>
+    </header>
+    <main class="max-w-[1600px] mx-auto p-8 mb-24">
+        <!-- Dashboard Hero Section -->
+        <section class="mb-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+            <div class="lg:col-span-8">
+                <h2 class="font-headline text-5xl font-bold tracking-tight text-on-surface mb-2">Executive Overview</h2>
+                <p class="font-body text-on-surface-variant max-w-2xl text-lg">Central nervous system for transportation
+                    data logistics. Integrity monitored across all regional hubs.</p>
+            </div>
+            <div class="lg:col-span-4 flex justify-end gap-4">
+                <button
+                    class="bg-primary text-on-primary font-label text-xs font-bold uppercase tracking-widest px-8 py-4 hover:brightness-110 transition-all">
+                    Export Ledger
+                </button>
+            </div>
+        </section>
+        <!-- Bento Grid Layout -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6">
+            <!-- Module 1: Data Health Audit (Fase 1) -->
+            <div
+                class="lg:col-span-4 bg-surface-container-low matte-grain p-8 flex flex-col justify-between min-h-[400px]">
+                <div class="flex justify-between items-start mb-8">
+                    <div>
+                        <span class="font-label text-[10px] uppercase tracking-widest text-primary mb-2 block">Phase
+                            01</span>
+                        <h3 class="font-headline text-2xl font-bold">Data Health Audit</h3>
+                    </div>
+                    <span class="material-symbols-outlined text-outline" data-icon="verified_user">verified_user</span>
+                </div>
+                <div class="relative flex flex-col items-center">
+                    <div class="w-64 h-32 custom-gauge relative overflow-hidden"></div>
+                    <div class="text-center mt-4">
+                        <span class="font-headline text-5xl font-bold text-primary">82%</span>
+                        <p class="font-label text-xs uppercase tracking-widest text-outline mt-1">Sanity Meter</p>
+                    </div>
+                </div>
+                <div class="mt-8 pt-6 border-t border-outline-variant/10">
+                    <div class="flex justify-between text-xs font-label text-outline uppercase tracking-tighter">
+                        <span>Critical Errors: 0</span>
+                        <span>Warnings: 12</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Module 2: Business Rules Engineering (Fase 2) -->
+            <div
+                class="lg:col-span-8 bg-surface-container-low border-l-4 border-primary/20 matte-grain p-8 flex flex-col">
+                <div class="flex justify-between items-start mb-12">
+                    <div>
+                        <span class="font-label text-[10px] uppercase tracking-widest text-primary mb-2 block">Phase
+                            02</span>
+                        <h3 class="font-headline text-2xl font-bold">Business Rules Engineering</h3>
+                    </div>
+                    <button
+                        class="font-label text-[10px] uppercase tracking-widest text-on-surface border border-outline-variant/30 px-4 py-2 hover:bg-surface-container-high transition-colors">
+                        View All Rules
+                    </button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 flex-grow">
+                    <div class="bg-surface-container-high p-6 flex flex-col justify-center">
+                        <span class="font-label text-[10px] uppercase tracking-widest text-outline mb-2">Processing
+                            Rate</span>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-3xl font-body font-bold text-on-surface">1.2M</span>
+                            <span class="text-xs text-primary">ops/s</span>
+                        </div>
+                        <div class="mt-4 h-[2px] w-full bg-surface-variant">
+                            <div class="h-full bg-primary w-3/4 opacity-80"></div>
+                        </div>
+                    </div>
+                    <div class="bg-surface-container-high p-6 flex flex-col justify-center">
+                        <span class="font-label text-[10px] uppercase tracking-widest text-outline mb-2">Rule
+                            Latency</span>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-3xl font-body font-bold text-on-surface">14ms</span>
+                            <span class="text-xs text-primary">optimized</span>
+                        </div>
+                        <div class="mt-4 h-[2px] w-full bg-surface-variant">
+                            <div class="h-full bg-primary w-1/4"></div>
+                        </div>
+                    </div>
+                    <div class="bg-surface-container-high p-6 flex flex-col justify-center">
+                        <span class="font-label text-[10px] uppercase tracking-widest text-outline mb-2">Active
+                            Logic</span>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-3xl font-body font-bold text-on-surface">184</span>
+                            <span class="text-xs text-outline">verified</span>
+                        </div>
+                        <div class="mt-4 h-[2px] w-full bg-surface-variant">
+                            <div class="h-full bg-outline w-1/2"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-12 overflow-hidden bg-surface-container-lowest p-4">
+                    <img alt="Real-time data stream visualization"
+                        class="w-full h-32 object-cover opacity-30 mix-blend-screen grayscale"
+                        data-alt="Technical visualization of complex data nodes and connections on a dark matte surface with subtle glowing lines"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGg22C5Wn-wHXaDnu9FwOhMDi24vglXYW6WEoWw1Wi9AT4zyw7EX5VXl24EsDGLRtLob96ZgCg3XgUBdxcShqhHsB6HmqVykOmfm6OkOiYmkDEuumGgkgRu2cKEd6R5V5FGUtibALg-EGS8RKOD62b2Lx7fMH06KlEws5cic_xGMgQ0QjyzFos6HEhZa6cbsaUSRX-lXx-msHqaKNRxE8ZRzzEKu2k_BtTKbsZ2ku2K4vUUq4iVKjPMBhBivsefWsIqeM-l8Sc40uO" />
+                </div>
+            </div>
+            <!-- Module 3: MVP Roadmap -->
+            <div class="lg:col-span-12 bg-surface-container-low matte-grain p-8">
+                <div class="flex justify-between items-center mb-10">
+                    <h3 class="font-headline text-2xl font-bold">MVP Roadmap</h3>
+                    <div class="flex items-center gap-2">
+                        <div class="w-3 h-3 bg-primary"></div>
+                        <span class="font-label text-[10px] uppercase tracking-widest">Day 45 of 90</span>
+                    </div>
+                </div>
+                <div class="relative py-12">
+                    <!-- Timeline Bar -->
+                    <div class="absolute top-1/2 left-0 w-full h-px bg-outline-variant/20 transform -translate-y-1/2">
+                    </div>
+                    <div class="grid grid-cols-3 relative">
+                        <!-- Node 1 -->
+                        <div class="flex flex-col items-center text-center px-4">
+                            <div
+                                class="w-12 h-12 bg-primary text-on-primary flex items-center justify-center z-10 mb-4 border-4 border-surface shadow-[0_0_15px_rgba(209,161,78,0.3)]">
+                                <span class="material-symbols-outlined" data-icon="foundation">foundation</span>
+                            </div>
+                            <span
+                                class="font-label text-[10px] uppercase tracking-widest text-primary font-bold mb-1">Fase
+                                1</span>
+                            <h4 class="font-body font-bold text-on-surface">Cimientos</h4>
+                            <p class="text-xs text-outline mt-2 max-w-[150px]">Core data schema and integrity validation
+                                engines.</p>
+                        </div>
+                        <!-- Node 2 -->
+                        <div class="flex flex-col items-center text-center px-4">
+                            <div
+                                class="w-12 h-12 bg-primary/20 text-primary flex items-center justify-center z-10 mb-4 border-4 border-surface border-primary/40">
+                                <span class="material-symbols-outlined" data-icon="construction">construction</span>
+                            </div>
+                            <span
+                                class="font-label text-[10px] uppercase tracking-widest text-primary/80 font-bold mb-1">Fase
+                                2</span>
+                            <h4 class="font-body font-bold text-on-surface">Construcción</h4>
+                            <p class="text-xs text-outline mt-2 max-w-[150px]">Business logic implementation and API
+                                orchestration.</p>
+                        </div>
+                        <!-- Node 3 -->
+                        <div class="flex flex-col items-center text-center px-4 opacity-40">
+                            <div
+                                class="w-12 h-12 bg-surface-container-high text-outline flex items-center justify-center z-10 mb-4 border-4 border-surface">
+                                <span class="material-symbols-outlined" data-icon="rocket_launch">rocket_launch</span>
+                            </div>
+                            <span
+                                class="font-label text-[10px] uppercase tracking-widest text-outline font-bold mb-1">Fase
+                                3</span>
+                            <h4 class="font-body font-bold text-on-surface">Despliegue</h4>
+                            <p class="text-xs text-outline mt-2 max-w-[150px]">Global rollout and executive dashboard
+                                activation.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Contextual Asymmetric Log -->
+            <div class="lg:col-span-5 bg-surface-container-low p-8 matte-grain">
+                <h4 class="font-label text-[10px] uppercase tracking-[0.3em] text-outline mb-6">System Terminal Logs
+                </h4>
+                <div class="space-y-4 font-label text-[11px] text-on-surface-variant leading-relaxed">
+                    <div class="flex gap-4">
+                        <span class="text-primary opacity-50">14:22:01</span>
+                        <p><span class="text-primary/70">[SUCCESS]</span> ETL Pipeline: Regional Hub North connected.
+                        </p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="text-primary opacity-50">14:19:45</span>
+                        <p><span class="text-primary">[INFO]</span> Business Rule #482 compiled successfully.</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="text-primary opacity-50">14:15:12</span>
+                        <p><span class="text-primary/70">[SUCCESS]</span> Schema validation complete. 0 anomalies
+                            detected.</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="text-primary opacity-50">14:02:33</span>
+                        <p><span class="text-primary">[WARN]</span> Latency spike in sector G-4. Re-routing...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="lg:col-span-7 bg-surface-container-high matte-grain p-0 overflow-hidden min-h-[300px] flex">
+                <div class="w-1/2 p-8 flex flex-col justify-center">
+                    <h3 class="font-headline text-3xl font-bold mb-4">Infrastructure Status</h3>
+                    <p class="text-sm text-on-surface-variant mb-6">Real-time monitoring of the distributed cloud
+                        architecture supporting CFI's logistics network.</p>
+                    <div class="flex items-center gap-4">
+                        <div class="flex flex-col">
+                            <span class="text-2xl font-body font-bold text-on-surface">99.98%</span>
+                            <span class="font-label text-[10px] uppercase text-outline">Uptime</span>
+                        </div>
+                        <div class="w-px h-8 bg-outline-variant/20 mx-4"></div>
+                        <div class="flex flex-col">
+                            <span class="text-2xl font-body font-bold text-on-surface">2.4ms</span>
+                            <span class="font-label text-[10px] uppercase text-outline">Network</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-1/2 relative">
+                    <div class="absolute inset-0 walnut-texture opacity-30"></div>
+                    <img alt="Mid-century architectural detail"
+                        class="absolute inset-0 w-full h-full object-cover mix-blend-multiply grayscale"
+                        data-alt="Minimalist architectural detail of clean lines and textured wood in dramatic low light"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDk3NNTlYWnzK-XHuvzTT_dOBsRhbbRjJ4B9YbKkIABHgik4WHExKB1GSBKhlV8mBViUNTNf0CMiWXLiVDrcHmUutIKDLC3qyLeTsD9f2LhkoKbSmGQMsypKmXy1VYjIdaD1UBa5tQKmpBblTnV2y3YrxJ-ge1nURgNyOd73WhwIBKRlACPyDOj2fMZgEWpKjlzEudRBNxzBTiT9mXIw7lFIHv_C-WewvWzU2b08UJths7sXmgyoUGnsoqsy20svwQxRnTyE4Fi5t_s" />
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Bottom Navigation Shell -->
+    <footer
+        class="fixed bottom-0 left-0 w-full bg-gradient-to-t from-[#131314] to-[#1B1B1C] flex justify-around items-center px-12 pb-safe z-50 h-20 shadow-[0_-10px_30px_rgba(0,0,0,0.5)] border-t-0">
+        <!-- Dashboard (Active) -->
+        <a class="flex flex-col items-center justify-center text-[#D1A14E] border-t-2 border-[#D1A14E] pt-2 transition-transform duration-150 ease-in-out"
+            href="#">
+            <span class="material-symbols-outlined mb-1" data-icon="dashboard"
+                style="font-variation-settings: 'FILL' 1;">dashboard</span>
+            <span class="text-xs font-semibold font-body uppercase tracking-wider">Dashboard</span>
+        </a>
+        <!-- Data Integrity -->
+        <a class="flex flex-col items-center justify-center text-[#4F453F] opacity-60 pt-2 hover:text-[#D1A14E] hover:opacity-100 transition-all"
+            href="#">
+            <span class="material-symbols-outlined mb-1" data-icon="security">security</span>
+            <span class="text-xs font-semibold font-body uppercase tracking-wider">Data Integrity</span>
+        </a>
+        <!-- Business Rules -->
+        <a class="flex flex-col items-center justify-center text-[#4F453F] opacity-60 pt-2 hover:text-[#D1A14E] hover:opacity-100 transition-all"
+            href="#">
+            <span class="material-symbols-outlined mb-1" data-icon="rule_folder">rule_folder</span>
+            <span class="text-xs font-semibold font-body uppercase tracking-wider">Business Rules</span>
+        </a>
+        <!-- Admin -->
+        <a class="flex flex-col items-center justify-center text-[#4F453F] opacity-60 pt-2 hover:text-[#D1A14E] hover:opacity-100 transition-all"
+            href="#">
+            <span class="material-symbols-outlined mb-1" data-icon="admin_panel_settings">admin_panel_settings</span>
+            <span class="text-xs font-semibold font-body uppercase tracking-wider">Admin</span>
+        </a>
+    </footer>
+</body>
+
+</html>
+
+<!-- Dashboard (Gold Update) -->
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>CFI Transporte - Business Rules Engineering</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&amp;family=Manrope:wght@400;500;600;700&amp;family=Inter:wght@400;500&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-fixed-dim": "#C19445",
+                        "surface-container-lowest": "#0e0e0f",
+                        "on-error": "#690005",
+                        "surface-variant": "#353436",
+                        "surface-container-high": "#2a2a2b",
+                        "inverse-surface": "#e5e2e3",
+                        "primary": "#D1A14E",
+                        "on-primary-container": "#A67B30",
+                        "primary-container": "#3d2b00",
+                        "surface-container-low": "#1b1b1c",
+                        "surface": "#131314",
+                        "on-secondary-fixed-variant": "#434b18",
+                        "secondary-container": "#434b18",
+                        "surface-container-highest": "#353436",
+                        "on-surface": "#e5e2e3",
+                        "on-secondary-container": "#b1bb7c",
+                        "on-primary": "#2e2100",
+                        "on-secondary": "#2d3404",
+                        "primary-fixed": "#f2dfb8",
+                        "error": "#ffb4ab",
+                        "inverse-on-surface": "#303031",
+                        "background": "#131314",
+                        "on-error-container": "#ffdad6",
+                        "tertiary-container": "#3d2b1f",
+                        "on-primary-fixed": "#281a00",
+                        "surface-tint": "#D1A14E",
+                        "on-tertiary-container": "#ac9181",
+                        "tertiary-fixed-dim": "#dec1af",
+                        "surface-dim": "#131314",
+                        "on-tertiary": "#3f2c20",
+                        "tertiary": "#dec1af",
+                        "secondary": "#c3cc8c",
+                        "outline-variant": "#4f453f",
+                        "on-secondary-fixed": "#191e00",
+                        "tertiary-fixed": "#fbddca",
+                        "on-tertiary-fixed-variant": "#574335",
+                        "on-background": "#e5e2e3",
+                        "secondary-fixed-dim": "#c3cc8c",
+                        "on-surface-variant": "#d2c4bc",
+                        "on-primary-fixed-variant": "#604200",
+                        "secondary-fixed": "#dfe8a6",
+                        "surface-container": "#1f1f20",
+                        "error-container": "#93000a",
+                        "surface-bright": "#39393a",
+                        "outline": "#9b8e87",
+                        "inverse-primary": "#904d00",
+                        "on-tertiary-fixed": "#28180d"
+                    },
+                    fontFamily: {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .vertical-slats {
+            background-image: repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(79, 69, 63, 0.1) 40px);
+            background-size: 40px 100%;
+        }
+
+        .matte-grain {
+            position: relative;
+        }
+
+        .matte-grain::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            opacity: 0.03;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary">
+    <!-- TopAppBar -->
+    <header class="bg-[#131314] dark:bg-[#131314] flex justify-between items-center w-full px-8 py-6 sticky top-0 z-50">
+        <div class="flex items-center gap-4">
+            <span class="material-symbols-outlined text-primary" style="font-size: 32px;">architecture</span>
+            <h1 class="text-2xl font-serif text-primary uppercase tracking-widest leading-none">CFI Transporte</h1>
+        </div>
+        <div class="flex items-center gap-6">
+            <div class="hidden md:flex gap-8 items-center">
+                <nav class="flex gap-8 text-sm font-label tracking-widest uppercase">
+                    <a class="text-[#4F453F] hover:text-primary transition-colors" href="#">Network</a>
+                    <a class="text-primary" href="#">Protocol</a>
+                    <a class="text-[#4F453F] hover:text-primary transition-colors" href="#">Archive</a>
+                </nav>
+            </div>
+            <div
+                class="w-10 h-10 bg-surface-container-high flex items-center justify-center border border-outline-variant/20">
+                <span class="material-symbols-outlined text-primary text-sm">person</span>
+            </div>
+        </div>
+    </header>
+    <main class="min-h-screen pb-32">
+        <!-- Dashboard Header -->
+        <section class="px-8 pt-12 pb-8 flex flex-col md:flex-row md:items-end justify-between gap-8">
+            <div class="max-w-2xl">
+                <span class="font-label text-xs uppercase tracking-[0.3em] text-outline mb-3 block">System
+                    Architecture</span>
+                <h2 class="font-headline text-5xl font-bold tracking-tight text-on-surface leading-tight">Business Rules
+                    <span class="text-primary">Engineering</span></h2>
+                <p class="mt-4 text-on-surface-variant font-body text-lg leading-relaxed opacity-80">
+                    Precision-tuned logic for autonomous fleet operations. Managed ledger of conditional executions and
+                    operational constraints.
+                </p>
+            </div>
+            <button
+                class="bg-primary text-on-primary px-8 py-4 font-label text-sm font-bold uppercase tracking-widest flex items-center gap-3 hover:bg-primary-fixed-dim transition-colors duration-300">
+                <span class="material-symbols-outlined">add</span>
+                Create New Rule
+            </button>
+        </section>
+        <!-- KPI Grid -->
+        <section
+            class="px-8 grid grid-cols-1 md:grid-cols-3 gap-0 border-y border-outline-variant/10 bg-surface-container-low">
+            <div class="p-8 border-r border-outline-variant/10 flex flex-col gap-2 relative">
+                <div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary-container"></div>
+                <span class="font-label text-[10px] uppercase tracking-widest text-outline">Engine Latency</span>
+                <div class="font-headline text-4xl font-bold">14.2<span
+                        class="text-lg font-body font-normal ml-1">ms</span></div>
+                <span class="text-xs text-primary flex items-center gap-1 font-label opacity-80">
+                    <span class="material-symbols-outlined text-xs">arrow_downward</span> 2.4% from peak
+                </span>
+            </div>
+            <div class="p-8 border-r border-outline-variant/10 flex flex-col gap-2 relative">
+                <div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary-container"></div>
+                <span class="font-label text-[10px] uppercase tracking-widest text-outline">Active Constraints</span>
+                <div class="font-headline text-4xl font-bold">1,284</div>
+                <span class="text-xs text-on-surface-variant font-label">Global Registry</span>
+            </div>
+            <div class="p-8 flex flex-col gap-2 relative">
+                <div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary-container"></div>
+                <span class="font-label text-[10px] uppercase tracking-widest text-outline">Decision Integrity</span>
+                <div class="font-headline text-4xl font-bold">99.99<span
+                        class="text-lg font-body font-normal ml-1">%</span></div>
+                <span class="text-xs text-primary font-label">Executive Level</span>
+            </div>
+        </section>
+        <!-- Main Content Area: Vertical Slats Background -->
+        <section class="px-8 py-12 vertical-slats min-h-[600px]">
+            <div class="max-w-7xl mx-auto space-y-6">
+                <!-- Rule Item 1 -->
+                <div
+                    class="matte-grain bg-surface-container-low border-l-4 border-primary p-8 flex flex-col md:flex-row items-center justify-between gap-8 group hover:bg-surface-container transition-all duration-300">
+                    <div class="flex-1 flex flex-col gap-1">
+                        <div class="flex items-center gap-3">
+                            <span
+                                class="text-[10px] font-label uppercase tracking-tighter bg-tertiary-container px-2 py-0.5 text-tertiary">Fleet_Ops</span>
+                            <h3 class="font-headline text-xl font-bold text-on-surface">Dynamic Load Distribution V4
+                            </h3>
+                        </div>
+                        <p class="text-sm text-on-surface-variant font-body mt-1">Adjusts axle pressure weighting based
+                            on real-time topological sensor data for optimized fuel consumption.</p>
+                        <div class="flex gap-6 mt-4">
+                            <div class="flex flex-col">
+                                <span class="text-[10px] font-label text-outline uppercase">Efficiency</span>
+                                <span class="text-sm font-bold font-body text-primary">94.2%</span>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="text-[10px] font-label text-outline uppercase">Executions</span>
+                                <span class="text-sm font-bold font-body">12.4k / hr</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-12">
+                        <!-- Data Sparkline Mockup -->
+                        <div class="hidden lg:flex gap-1 h-8 items-end">
+                            <div class="w-1 bg-outline-variant h-3"></div>
+                            <div class="w-1 bg-primary h-5"></div>
+                            <div class="w-1 bg-primary h-8"></div>
+                            <div class="w-1 bg-outline-variant h-4"></div>
+                            <div class="w-1 bg-primary h-6"></div>
+                            <div class="w-1 bg-primary h-7"></div>
+                        </div>
+                        <!-- Tactile Toggle Switch -->
+                        <div class="flex items-center gap-4">
+                            <span class="text-[10px] font-label uppercase tracking-widest text-primary">Active</span>
+                            <div class="w-14 h-8 bg-surface-container-highest flex items-center p-1 cursor-pointer">
+                                <div class="w-6 h-6 bg-primary shadow-sm transform translate-x-6"></div>
+                            </div>
+                        </div>
+                        <button class="text-on-surface-variant hover:text-primary transition-colors">
+                            <span class="material-symbols-outlined">settings_suggest</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Rule Item 2 -->
+                <div
+                    class="matte-grain bg-surface-container-low border-l-4 border-outline-variant p-8 flex flex-col md:flex-row items-center justify-between gap-8 group hover:bg-surface-container transition-all duration-300">
+                    <div class="flex-1 flex flex-col gap-1">
+                        <div class="flex items-center gap-3">
+                            <span
+                                class="text-[10px] font-label uppercase tracking-tighter bg-surface-container-highest px-2 py-0.5 text-outline">Risk_Mgmt</span>
+                            <h3 class="font-headline text-xl font-bold text-on-surface opacity-60">Overtime Fatigue
+                                Compensation</h3>
+                        </div>
+                        <p class="text-sm text-on-surface-variant font-body mt-1 opacity-60">Automatic redirection of
+                            non-critical routes when driver biometrics indicate stage 2 fatigue thresholds.</p>
+                        <div class="flex gap-6 mt-4 opacity-60">
+                            <div class="flex flex-col">
+                                <span class="text-[10px] font-label text-outline uppercase">Efficiency</span>
+                                <span class="text-sm font-bold font-body">--</span>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="text-[10px] font-label text-outline uppercase">Executions</span>
+                                <span class="text-sm font-bold font-body">0</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-12 opacity-40">
+                        <div class="hidden lg:flex gap-1 h-8 items-end">
+                            <div class="w-1 bg-outline-variant h-2"></div>
+                            <div class="w-1 bg-outline-variant h-2"></div>
+                            <div class="w-1 bg-outline-variant h-2"></div>
+                            <div class="w-1 bg-outline-variant h-2"></div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="text-[10px] font-label uppercase tracking-widest text-outline">Inactive</span>
+                            <div class="w-14 h-8 bg-surface-container-highest flex items-center p-1 cursor-pointer">
+                                <div class="w-6 h-6 bg-outline-variant shadow-sm"></div>
+                            </div>
+                        </div>
+                        <button class="text-on-surface-variant">
+                            <span class="material-symbols-outlined">settings_suggest</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Rule Item 3 -->
+                <div
+                    class="matte-grain bg-surface-container-low border-l-4 border-primary p-8 flex flex-col md:flex-row items-center justify-between gap-8 group hover:bg-surface-container transition-all duration-300">
+                    <div class="flex-1 flex flex-col gap-1">
+                        <div class="flex items-center gap-3">
+                            <span
+                                class="text-[10px] font-label uppercase tracking-tighter bg-tertiary-container px-2 py-0.5 text-tertiary">Finance</span>
+                            <h3 class="font-headline text-xl font-bold text-on-surface">Dynamic Fuel Hedging Surcharge
+                            </h3>
+                        </div>
+                        <p class="text-sm text-on-surface-variant font-body mt-1">Updates shipping invoices based on
+                            localized terminal spot prices plus historical volatility indexing.</p>
+                        <div class="flex gap-6 mt-4">
+                            <div class="flex flex-col">
+                                <span class="text-[10px] font-label text-outline uppercase">Efficiency</span>
+                                <span class="text-sm font-bold font-body text-primary">98.1%</span>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="text-[10px] font-label text-outline uppercase">Executions</span>
+                                <span class="text-sm font-bold font-body">845 / hr</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-12">
+                        <div class="hidden lg:flex gap-1 h-8 items-end">
+                            <div class="w-1 bg-primary h-4"></div>
+                            <div class="w-1 bg-primary h-6"></div>
+                            <div class="w-1 bg-primary h-5"></div>
+                            <div class="w-1 bg-primary h-8"></div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="text-[10px] font-label uppercase tracking-widest text-primary">Active</span>
+                            <div class="w-14 h-8 bg-surface-container-highest flex items-center p-1 cursor-pointer">
+                                <div class="w-6 h-6 bg-primary shadow-sm transform translate-x-6"></div>
+                            </div>
+                        </div>
+                        <button class="text-on-surface-variant hover:text-primary transition-colors">
+                            <span class="material-symbols-outlined">settings_suggest</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- BottomNavBar -->
+    <nav
+        class="fixed bottom-0 left-0 w-full flex justify-around items-center px-12 pb-safe bg-[#1B1B1C] dark:bg-[#1B1B1C] shadow-[0_-10px_30px_rgba(0,0,0,0.5)] h-20 z-50">
+        <!-- Dashboard -->
+        <a class="flex flex-col items-center justify-center text-[#4F453F] opacity-60 pt-2 hover:text-primary hover:opacity-100 transition-all"
+            href="#">
+            <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+            <span class="text-xs font-semibold font-body uppercase tracking-wider mt-1">Dashboard</span>
+        </a>
+        <!-- Data Integrity -->
+        <a class="flex flex-col items-center justify-center text-[#4F453F] opacity-60 pt-2 hover:text-primary hover:opacity-100 transition-all"
+            href="#">
+            <span class="material-symbols-outlined" data-icon="security">security</span>
+            <span class="text-xs font-semibold font-body uppercase tracking-wider mt-1">Data Integrity</span>
+        </a>
+        <!-- Business Rules (ACTIVE) -->
+        <a class="flex flex-col items-center justify-center text-primary border-t-2 border-primary pt-2 transition-transform duration-150 ease-in-out"
+            href="#">
+            <span class="material-symbols-outlined" data-icon="rule_folder"
+                style="font-variation-settings: 'FILL' 1;">rule_folder</span>
+            <span class="text-xs font-semibold font-body uppercase tracking-wider mt-1">Business Rules</span>
+        </a>
+        <!-- Admin -->
+        <a class="flex flex-col items-center justify-center text-[#4F453F] opacity-60 pt-2 hover:text-primary hover:opacity-100 transition-all"
+            href="#">
+            <span class="material-symbols-outlined" data-icon="admin_panel_settings">admin_panel_settings</span>
+            <span class="text-xs font-semibold font-body uppercase tracking-wider mt-1">Admin</span>
+        </a>
+    </nav>
+</body>
+
+</html>
+
+<!-- Business Rules Engineering (Gold Update) -->
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>CFI Transporte | MVP Roadmap</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&amp;family=Manrope:wght@400;500;600;700&amp;family=Inter:wght@400;500&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-fixed-dim": "#D1A14E",
+                        "surface-container-lowest": "#0e0e0f",
+                        "on-error": "#690005",
+                        "surface-variant": "#353436",
+                        "surface-container-high": "#2a2a2b",
+                        "inverse-surface": "#e5e2e3",
+                        "primary": "#D1A14E",
+                        "on-primary-container": "#D1A14E",
+                        "primary-container": "#3d2b00",
+                        "surface-container-low": "#1b1b1c",
+                        "surface": "#131314",
+                        "on-secondary-fixed-variant": "#434b18",
+                        "secondary-container": "#434b18",
+                        "surface-container-highest": "#353436",
+                        "on-surface": "#e5e2e3",
+                        "on-secondary-container": "#b1bb7c",
+                        "on-primary": "#2d1b00",
+                        "on-secondary": "#2d3404",
+                        "primary-fixed": "#fbddca",
+                        "error": "#ffb4ab",
+                        "inverse-on-surface": "#303031",
+                        "background": "#131314",
+                        "on-error-container": "#ffdad6",
+                        "tertiary-container": "#3d2b1f",
+                        "on-primary-fixed": "#2d1b00",
+                        "surface-tint": "#D1A14E",
+                        "on-tertiary-container": "#ac9181",
+                        "tertiary-fixed-dim": "#dec1af",
+                        "surface-dim": "#131314",
+                        "on-tertiary": "#3f2c20",
+                        "tertiary": "#dec1af",
+                        "secondary": "#c3cc8c",
+                        "outline-variant": "#4f453f",
+                        "on-secondary-fixed": "#191e00",
+                        "tertiary-fixed": "#fbddca",
+                        "on-tertiary-fixed-variant": "#574335",
+                        "on-background": "#e5e2e3",
+                        "secondary-fixed-dim": "#c3cc8c",
+                        "on-surface-variant": "#d2c4bc",
+                        "on-primary-fixed-variant": "#6d3900",
+                        "secondary-fixed": "#dfe8a6",
+                        "surface-container": "#1f1f20",
+                        "error-container": "#93000a",
+                        "surface-bright": "#39393a",
+                        "outline": "#9b8e87",
+                        "inverse-primary": "#D1A14E",
+                        "on-tertiary-fixed": "#28180d"
+                    },
+                    fontFamily: {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            background-color: #131314;
+            font-family: "Manrope", sans-serif;
+            -webkit-font-smoothing: antialiased
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24
+        }
+
+        .slat-bg {
+            background-image: repeating-linear-gradient(90deg, transparent, transparent 19px, rgba(79, 69, 63, 0.1) 19px, rgba(79, 69, 63, 0.1) 20px)
+        }
+
+        .matte-grain {
+            position: relative
+        }
+
+        .matte-grain::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            pointer-events: none;
+            background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuAuC2sy1wAvWyvOCtGcZHAaIbkTcsh48TVnF7Tk40tFdFjYKAuzd--_mZtybZqxXYd9RJEOZRzf2TagjKd-LlmQ0T0-im_jMdBtvSfdYFCcLcPauuiCjWpoB8OJ5CML-LkNKbq3WV3DokiAyz6kzA3Dc8MzzFH13MUsYXlZAg8dTLWZ9_e5itN2eIMh7Mj5nib9LYZP1a6eBSXdrTogVVNzVMEhthUx76RaDNjUYKsa58aK_GdMdyCvKLoxc3S73urRmIxIyxqsOz2y)
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="text-on-surface select-none">
+    <!-- TopAppBar Execution -->
+    <header
+        class="bg-[#131314] dark:bg-[#131314] flex justify-between items-center w-full px-8 py-6 sticky top-0 z-[60]">
+        <div class="flex items-center gap-4">
+            <span class="material-symbols-outlined text-[#D1A14E]" data-icon="architecture">architecture</span>
+            <h1 class="text-2xl font-serif text-[#D1A14E] uppercase tracking-widest">CFI Transporte</h1>
+        </div>
+        <div class="flex items-center gap-6">
+            <nav class="hidden md:flex gap-8">
+                <a class="font-label text-sm uppercase tracking-widest text-[#D1A14E] transition-colors duration-300"
+                    href="#">Roadmap</a>
+                <a class="font-label text-sm uppercase tracking-widest text-[#4F453F] hover:bg-[#2A2A2B] transition-colors duration-300 px-2"
+                    href="#">Logistics</a>
+                <a class="font-label text-sm uppercase tracking-widest text-[#4F453F] hover:bg-[#2A2A2B] transition-colors duration-300 px-2"
+                    href="#">Reports</a>
+            </nav>
+            <div
+                class="h-10 w-10 bg-surface-container-highest border border-outline-variant/20 flex items-center justify-center overflow-hidden">
+                <img class="w-full h-full object-cover"
+                    data-alt="Close-up portrait of a senior executive male in a dark suit with a focused, professional expression"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVqMFnAfxWwt-ulvGZakIb5S10zwa3MYWM09S5QSCsnDotHTNMoz72CB3N41-pMBMd-SBR2PlJ9jNejzUoYtY7wBsq6JMT04c_bJld_mPfFOcj3sAw1YfJwzKyb8K1dGAAODTWHLhuvR9QI4-u_8F_z1t9ArEAoVUE7RbLl0CoU8wIi9KfQqyorPfrU0uT9_-D42HKaBmvEQn7Ryc5zJPFBMmqlMG5rfHz82upjiApgDILsXgBzJyrNkNiMNpYsHSF1VSo58eK99IJ" />
+            </div>
+        </div>
+    </header>
+    <main class="min-h-screen pb-32 px-8 pt-12 max-w-7xl mx-auto">
+        <!-- Header Section -->
+        <section class="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-8">
+            <div class="max-w-2xl">
+                <p class="font-label text-xs uppercase tracking-[0.3em] text-primary mb-4">Project Alpha • 2024</p>
+                <h2 class="font-headline text-5xl md:text-6xl font-bold tracking-tight mb-6">MVP Roadmap: 90-Day
+                    Execution</h2>
+                <p class="font-body text-on-surface-variant text-lg leading-relaxed">
+                    Strategic infrastructure deployment for the CFI logistics engine. Focus on high-integrity data
+                    pipelines and operational foundation.
+                </p>
+            </div>
+            <div class="bg-surface-container-low p-8 border-l-4 border-tertiary-container min-w-[280px]">
+                <p class="font-label text-xs uppercase tracking-widest text-outline mb-2">Current Velocity</p>
+                <div class="flex items-baseline gap-2">
+                    <span class="font-headline text-4xl font-bold text-primary">74%</span>
+                    <span class="font-label text-sm text-secondary">On Schedule</span>
+                </div>
+            </div>
+        </section>
+        <!-- 90-Day Progress Widget (The Ledger) -->
+        <section class="mb-20">
+            <div class="bg-surface-container-low matte-grain relative p-1">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-outline-variant/10">
+                    <!-- Phase 1: Cimientos -->
+                    <div class="bg-surface p-10 flex flex-col h-full border-t-4 border-primary">
+                        <div class="flex justify-between items-start mb-12">
+                            <div>
+                                <span
+                                    class="font-label text-[10px] uppercase tracking-widest text-outline-variant block mb-1">Phase
+                                    01</span>
+                                <h3 class="font-headline text-2xl font-bold uppercase tracking-tight">Cimientos</h3>
+                            </div>
+                            <span class="material-symbols-outlined text-primary"
+                                data-icon="foundation">foundation</span>
+                        </div>
+                        <div class="space-y-8 flex-grow">
+                            <div class="group">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="font-body text-sm font-semibold uppercase tracking-wider">Cloud
+                                        Infra</span>
+                                    <span class="font-label text-xs text-primary">Done</span>
+                                </div>
+                                <div class="h-1 bg-surface-container-high w-full">
+                                    <div class="h-full bg-primary w-full transition-all"></div>
+                                </div>
+                            </div>
+                            <div class="group">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="font-body text-sm font-semibold uppercase tracking-wider">Security
+                                        Core</span>
+                                    <span class="font-label text-xs text-primary">Done</span>
+                                </div>
+                                <div class="h-1 bg-surface-container-high w-full">
+                                    <div class="h-full bg-primary w-full transition-all"></div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3 p-4 bg-[#D1A14E]/10 border border-[#D1A14E]/20">
+                                <span class="material-symbols-outlined text-[#D1A14E] text-sm"
+                                    data-icon="priority_high">priority_high</span>
+                                <span
+                                    class="font-label text-[10px] uppercase font-bold text-[#D1A14E] tracking-widest">Audit
+                                    Required: Compliance V2</span>
+                            </div>
+                        </div>
+                        <div class="mt-12 pt-8 border-t border-outline-variant/10">
+                            <p class="font-label text-[10px] uppercase text-outline mb-1">Target Date</p>
+                            <p class="font-body font-bold text-sm">Jan 30, 2024</p>
+                        </div>
+                    </div>
+                    <!-- Phase 2: Construcción -->
+                    <div class="bg-surface p-10 flex flex-col h-full border-t-4 border-outline-variant/30">
+                        <div class="flex justify-between items-start mb-12">
+                            <div>
+                                <span
+                                    class="font-label text-[10px] uppercase tracking-widest text-outline-variant block mb-1">Phase
+                                    02</span>
+                                <h3 class="font-headline text-2xl font-bold uppercase tracking-tight">Construcción</h3>
+                            </div>
+                            <span class="material-symbols-outlined text-outline-variant"
+                                data-icon="engineering">engineering</span>
+                        </div>
+                        <div class="space-y-8 flex-grow">
+                            <div class="group">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="font-body text-sm font-semibold uppercase tracking-wider">Data
+                                        Pipeline</span>
+                                    <span class="font-label text-xs text-on-surface-variant">65%</span>
+                                </div>
+                                <div class="h-1 bg-surface-container-high w-full">
+                                    <div class="h-full bg-primary w-[65%] transition-all"></div>
+                                </div>
+                            </div>
+                            <div class="group">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="font-body text-sm font-semibold uppercase tracking-wider">UI
+                                        Framework</span>
+                                    <span class="font-label text-xs text-on-surface-variant">20%</span>
+                                </div>
+                                <div class="h-1 bg-surface-container-high w-full">
+                                    <div class="h-full bg-primary w-[20%] transition-all"></div>
+                                </div>
+                            </div>
+                            <div class="p-4 bg-surface-container-low border border-outline-variant/10">
+                                <p class="font-body text-xs italic text-on-surface-variant">Integration of legacy API
+                                    systems underway.</p>
+                            </div>
+                        </div>
+                        <div class="mt-12 pt-8 border-t border-outline-variant/10">
+                            <p class="font-label text-[10px] uppercase text-outline mb-1">Target Date</p>
+                            <p class="font-body font-bold text-sm">Mar 15, 2024</p>
+                        </div>
+                    </div>
+                    <!-- Phase 3: Despliegue -->
+                    <div class="bg-surface p-10 flex flex-col h-full border-t-4 border-outline-variant/30">
+                        <div class="flex justify-between items-start mb-12">
+                            <div>
+                                <span
+                                    class="font-label text-[10px] uppercase tracking-widest text-outline-variant block mb-1">Phase
+                                    03</span>
+                                <h3 class="font-headline text-2xl font-bold uppercase tracking-tight">Despliegue</h3>
+                            </div>
+                            <span class="material-symbols-outlined text-outline-variant"
+                                data-icon="rocket_launch">rocket_launch</span>
+                        </div>
+                        <div class="space-y-8 flex-grow">
+                            <div class="opacity-40">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="font-body text-sm font-semibold uppercase tracking-wider">Beta
+                                        Launch</span>
+                                    <span class="font-label text-xs">Pending</span>
+                                </div>
+                                <div class="h-1 bg-surface-container-high w-full"></div>
+                            </div>
+                            <div class="opacity-40">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="font-body text-sm font-semibold uppercase tracking-wider">Fleet
+                                        Sync</span>
+                                    <span class="font-label text-xs">Pending</span>
+                                </div>
+                                <div class="h-1 bg-surface-container-high w-full"></div>
+                            </div>
+                        </div>
+                        <div class="mt-12 pt-8 border-t border-outline-variant/10">
+                            <p class="font-label text-[10px] uppercase text-outline mb-1">Target Date</p>
+                            <p class="font-body font-bold text-sm">Apr 30, 2024</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- High-Density Data Grid (Bento Style) -->
+        <section class="grid grid-cols-1 md:grid-cols-4 gap-6 auto-rows-[200px]">
+            <!-- Critical Milestones (Double Width) -->
+            <div
+                class="md:col-span-2 md:row-span-2 bg-surface-container-high p-10 flex flex-col justify-between matte-grain border border-outline-variant/10">
+                <div>
+                    <h4 class="font-headline text-2xl font-bold mb-6">Upcoming Milestones</h4>
+                    <ul class="space-y-6">
+                        <li class="flex items-center gap-6 group">
+                            <span class="font-label text-xs text-outline tabular-nums">02.14</span>
+                            <div class="h-px bg-outline-variant/20 flex-grow"></div>
+                            <span class="font-body text-sm font-medium tracking-wide uppercase">Core API
+                                Validation</span>
+                            <span
+                                class="material-symbols-outlined text-primary text-sm opacity-0 group-hover:opacity-100 transition-opacity"
+                                data-icon="arrow_forward">arrow_forward</span>
+                        </li>
+                        <li class="flex items-center gap-6 group">
+                            <span class="font-label text-xs text-outline tabular-nums">02.28</span>
+                            <div class="h-px bg-outline-variant/20 flex-grow"></div>
+                            <span class="font-body text-sm font-medium tracking-wide uppercase">Auth Logic
+                                Finalization</span>
+                        </li>
+                        <li class="flex items-center gap-6 group">
+                            <span class="font-label text-xs text-primary tabular-nums">03.05</span>
+                            <div class="h-px bg-primary/20 flex-grow"></div>
+                            <span class="font-body text-sm font-bold tracking-wide uppercase text-primary">Security
+                                Penetration Test</span>
+                            <span class="material-symbols-outlined text-primary text-sm"
+                                data-icon="priority_high">priority_high</span>
+                        </li>
+                        <li class="flex items-center gap-6 group">
+                            <span class="font-label text-xs text-outline tabular-nums">03.20</span>
+                            <div class="h-px bg-outline-variant/20 flex-grow"></div>
+                            <span class="font-body text-sm font-medium tracking-wide uppercase">Dashboard Alpha
+                                Preview</span>
+                        </li>
+                    </ul>
+                </div>
+                <button
+                    class="w-full py-4 border border-primary text-primary font-label text-xs uppercase tracking-widest hover:bg-primary hover:text-on-primary transition-all duration-300">
+                    View Full Master Plan
+                </button>
+            </div>
+            <!-- Resource Allocation Card -->
+            <div
+                class="md:col-span-2 bg-surface-container-low p-8 border border-outline-variant/10 overflow-hidden relative">
+                <div class="relative z-10">
+                    <h4 class="font-headline text-lg font-bold mb-4">Engineering Capacity</h4>
+                    <div class="flex items-end gap-1 h-24 mb-4">
+                        <div class="bg-primary/20 w-full h-[60%]"></div>
+                        <div class="bg-primary/40 w-full h-[80%]"></div>
+                        <div class="bg-primary w-full h-[95%]"></div>
+                        <div class="bg-primary/60 w-full h-[70%]"></div>
+                        <div class="bg-primary/30 w-full h-[50%]"></div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <p class="font-label text-[10px] text-outline uppercase tracking-widest">Active Headcount: 14
+                        </p>
+                        <span class="text-secondary font-label text-[10px] uppercase font-bold">+2 Recruitment</span>
+                    </div>
+                </div>
+            </div>
+            <!-- System Health Card -->
+            <div class="bg-surface-container-low p-8 border border-outline-variant/10 flex flex-col justify-between">
+                <h4 class="font-headline text-lg font-bold">System Integrity</h4>
+                <div class="flex flex-col items-center">
+                    <span class="font-headline text-4xl font-bold text-primary">99.98</span>
+                    <p class="font-label text-[10px] text-outline uppercase">Uptime Score</p>
+                </div>
+            </div>
+            <!-- Risk Matrix Card -->
+            <div class="bg-tertiary-container p-8 flex flex-col justify-between">
+                <div class="flex justify-between items-start">
+                    <h4 class="font-headline text-lg font-bold text-on-tertiary-container">Risk Index</h4>
+                    <span class="material-symbols-outlined text-on-tertiary-container"
+                        data-icon="warning">warning</span>
+                </div>
+                <p class="font-body text-2xl font-bold text-on-tertiary-container">Low/Medium</p>
+                <p class="font-label text-[10px] text-on-tertiary-container/60 uppercase">Last updated 2h ago</p>
+            </div>
+        </section>
+    </main>
+    <!-- BottomNavBar Execution -->
+    <footer class="bg-[#1B1B1C] fixed bottom-0 left-0 w-full z-50 h-20 shadow-[0_-10px_30px_rgba(0,0,0,0.5)]">
+        <div
+            class="bg-gradient-to-t from-[#131314] to-[#1B1B1C] h-full flex justify-around items-center px-12 pb-safe max-w-5xl mx-auto">
+            <!-- Dashboard Tab (Mapping Logic: Dashboard Active) -->
+            <a class="flex flex-col items-center justify-center text-[#D1A14E] border-t-2 border-[#D1A14E] pt-2 w-24 transition-transform duration-150 ease-in-out"
+                href="#">
+                <span class="material-symbols-outlined text-2xl mb-1" data-icon="dashboard">dashboard</span>
+                <span class="text-[10px] font-semibold font-body uppercase tracking-wider">Dashboard</span>
+            </a>
+            <!-- Data Integrity Tab -->
+            <a class="flex flex-col items-center justify-center text-[#4F453F] opacity-60 pt-2 w-24 hover:text-[#D1A14E] hover:opacity-100 transition-all"
+                href="#">
+                <span class="material-symbols-outlined text-2xl mb-1" data-icon="security">security</span>
+                <span class="text-[10px] font-semibold font-body uppercase tracking-wider">Data Integrity</span>
+            </a>
+            <!-- Business Rules Tab -->
+            <a class="flex flex-col items-center justify-center text-[#4F453F] opacity-60 pt-2 w-24 hover:text-[#D1A14E] hover:opacity-100 transition-all"
+                href="#">
+                <span class="material-symbols-outlined text-2xl mb-1" data-icon="rule_folder">rule_folder</span>
+                <span class="text-[10px] font-semibold font-body uppercase tracking-wider">Business Rules</span>
+            </a>
+            <!-- Admin Tab -->
+            <a class="flex flex-col items-center justify-center text-[#4F453F] opacity-60 pt-2 w-24 hover:text-[#D1A14E] hover:opacity-100 transition-all"
+                href="#">
+                <span class="material-symbols-outlined text-2xl mb-1"
+                    data-icon="admin_panel_settings">admin_panel_settings</span>
+                <span class="text-[10px] font-semibold font-body uppercase tracking-wider">Admin</span>
+            </a>
+        </div>
+    </footer>
+</body>
+
+</html>
